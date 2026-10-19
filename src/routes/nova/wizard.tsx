@@ -17,7 +17,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 
-export const Route = createFileRoute("/wizard")({
+export const Route = createFileRoute("/nova/wizard")({
 	component: WizardPage,
 });
 
@@ -99,7 +99,7 @@ function WizardPage() {
 		toast.success("项目已创建", {
 			description: `${data.name} · ${data.providers.length} 个提供商 · 月度预算 $${data.budget}`,
 		});
-		void navigate({ to: "/projects" });
+		void navigate({ to: "/nova/projects" });
 	}
 
 	function toggleProvider(id: string, checked: boolean) {
@@ -118,7 +118,7 @@ function WizardPage() {
 				description="按照步骤创建一个新项目：基本信息 → 模型与预算 → 确认提交。"
 				actions={
 					<Button variant="outline" asChild>
-						<Link to="/projects">取消</Link>
+						<Link to="/nova/projects">取消</Link>
 					</Button>
 				}
 			/>

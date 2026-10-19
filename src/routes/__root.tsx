@@ -2,6 +2,7 @@ import { Link, Outlet, createRootRoute } from "@tanstack/react-router";
 import { Toaster } from "sonner";
 
 import { Brand } from "@/components/brand";
+import { StyleScope } from "@/components/styleScope";
 import { ThemeProvider } from "@/components/themeProvider";
 import { Button } from "@/components/ui/button";
 
@@ -13,6 +14,7 @@ export const Route = createRootRoute({
 function RootComponent() {
 	return (
 		<ThemeProvider>
+			<StyleScope />
 			<Outlet />
 			<Toaster position="top-right" richColors closeButton />
 		</ThemeProvider>
@@ -33,10 +35,10 @@ function NotFound() {
 				</p>
 				<div className="mt-6 flex items-center gap-2">
 					<Button asChild>
-						<Link to="/dashboard">返回概览</Link>
+						<Link to="/nova/dashboard">返回概览</Link>
 					</Button>
 					<Button variant="outline" asChild>
-						<Link to="/help">帮助中心</Link>
+						<Link to="/nova/help">帮助中心</Link>
 					</Button>
 				</div>
 			</main>

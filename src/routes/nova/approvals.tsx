@@ -12,7 +12,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 
-export const Route = createFileRoute("/approvals")({
+export const Route = createFileRoute("/nova/approvals")({
 	component: ApprovalsPage,
 });
 

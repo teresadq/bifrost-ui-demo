@@ -22,7 +22,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 
-export const Route = createFileRoute("/roles")({
+export const Route = createFileRoute("/nova/roles")({
 	component: RolesPage,
 });
 

@@ -15,7 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 
-export const Route = createFileRoute("/register")({
+export const Route = createFileRoute("/nova/register")({
 	component: RegisterPage,
 });
 
@@ -64,7 +64,7 @@ function RegisterPage() {
 		await new Promise((resolve) => setTimeout(resolve, 900));
 		localStorage.setItem("nova:user", JSON.stringify({ name: values.name, email: values.email }));
 		toast.success("账号创建成功", { description: "欢迎加入 Nova，正在进入控制台…" });
-		void navigate({ to: "/dashboard" });
+		void navigate({ to: "/nova/dashboard" });
 	}
 
 	return (
@@ -204,7 +204,7 @@ function RegisterPage() {
 
 			<p className="text-muted-foreground mt-6 text-center text-xs">
 				已有账号？{" "}
-				<Link to="/login" className="text-foreground font-medium underline-offset-4 hover:underline">
+				<Link to="/nova/login" className="text-foreground font-medium underline-offset-4 hover:underline">
 					直接登录
 				</Link>
 			</p>
