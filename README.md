@@ -84,6 +84,22 @@ ReUI 演示基于 [keenthemes/reui](https://github.com/keenthemes/reui)（MIT）
 | `/reui/members` | 团队成员：搜索、角色切换、邀请、移除 |
 | `/reui/settings` | 设置：工作区 / 安全 / 通知 / 计费四个分区 |
 
+### ReUI Blocks 展厅
+
+`/reui/blocks` 用 ReUI 的 MIT 免费组件与等价自建实现，覆盖 reui.io/blocks 中后台系统相关的 5 个分类，共 **56 个可交互示例**：
+
+| 路由 | 分类 | 数量 | 示例 |
+| --- | --- | --- | --- |
+| `/reui/blocks/application` | Application | 23 | App Shell、Auth、Card、Dashboard、Dialog、Empty State、Event Calendar、Flow、Form、Gantt、Kanban、List、Navbar、Onboarding、Profile、Rich Text Editor、Schedule、Settings、Sheet、Stats、Timeline、Whiteboard、Wizard |
+| `/reui/blocks/data-grid` | Data Grid | 9 | Base、Advanced、Columns、Drag & Drop、Editing、Expansion、Filtering、Grouping、Virtualization |
+| `/reui/blocks/charts` | Chart | 10 | Area、Bar、Composed、Line、Pie、Radial、Sankey、Slope、Sparkline、Status Tracker |
+| `/reui/blocks/solutions` | Solutions | 11 | Agents、AI Ops、Analytics、Billing、Bookings、CRM、DevOps、Digital Twin、Files、Inventory、Users |
+| `/reui/blocks/ai` | AI Agents | 3 | Agent Activity、AI Chat、AI Usage |
+| `/reui/blocks/pro` | Pro 仿照 | 6 组 / 24 个 | App Shell、Data Grid、AI Chat、CRM、AI Usage、Editor 六组 Pro 变体实验室；附 56 分类 / 500 变体的公开目录 |
+
+> reui.io/blocks 的区块本身为 ReUI Pro 付费内容。展厅不包含任何付费源码，仅复刻其后台布局与交互模式；电商与营销分类不属于后台核心场景，未纳入。
+> `/reui/blocks/pro` 中的变体目录仅提取公开分类页的标题与用途描述，用于理解 Pro 能力范围；仿照实现全部使用 ReUI MIT 免费组件、项目内依赖与自建代码。
+
 ## 技术栈
 
 - **React 19.2** + **TypeScript 5.9** + **Vite 8**

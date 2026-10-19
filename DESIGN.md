@@ -245,3 +245,23 @@ ReUI 演示与 Bifrost 演示共享业务数据与页面结构，但使用另一
 ### 版权说明
 
 仅使用 [keenthemes/reui](https://github.com/keenthemes/reui) 仓库中 MIT 协议的免费组件与示例。ReUI 的 Application Blocks（包括 Kanban Board block）属于 Pro 付费内容，本项目未抓取或包含。
+
+### 11. Blocks 展厅（`/reui/blocks/*`）
+
+仿照 reui.io/blocks 的后台分类，用 ReUI 免费组件与自建示例提供 56 个可交互区块：
+
+- `/reui/blocks`：分类总览与原始分类对照表。
+- `/reui/blocks/application`：23 个应用区块（App Shell、认证、卡片、图表概览、对话框、空状态、事件日历、流程、表单、甘特图、看板、列表、导航、引导、资料、富文本、日程、设置、Sheet、统计、时间线、白板、向导）。
+- `/reui/blocks/data-grid`：9 个表格示例（基础、高级、列显示、行拖拽、行内编辑、展开行、筛选、分组、虚拟滚动）。
+- `/reui/blocks/charts`：10 个图表（面积、柱状、组合、折线、饼图、径向、桑基、斜率、迷你图、状态追踪条）。
+- `/reui/blocks/solutions`：11 个行业化后台布局（Agents、AI Ops、Analytics、Billing、Bookings、CRM、DevOps、Digital Twin、Files、Inventory、Users）。
+- `/reui/blocks/ai`：3 个 AI 组件（Agent Activity、AI Chat、AI Usage）。
+- `/reui/blocks/pro`：Pro 能力仿照实验室。包含 6 组、每组 4 个变体模式（App Shell、Data Grid、AI Chat、CRM、AI Usage、Editor），以及从 reui.io 公开分类页整理的 56 个后台分类 / 500 个变体名称目录。
+
+实现约定：
+
+- `components/reui/blocks/*Demos.tsx` 按分类组织示例，页面只负责组合。
+- 公共外壳由 `components/reui/gallery.tsx` 提供（`BlockCard`、`DemoSurface`、`GalleryGrid`、`CatalogTabs`）。
+- 表格、看板、图表均使用项目内已有依赖（TanStack Router、recharts、dnd-kit、Radix UI），不新增付费依赖。
+- 展厅内所有示例均可交互，并随明暗主题切换。
+- Pro 实验室使用 `components/reui/blocks/proDemos.tsx`，目录数据放在 `components/reui/proCatalog.ts`；只使用公开的变体名称与用途描述，不包含 Pro 源码。

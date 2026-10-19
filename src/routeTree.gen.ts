@@ -20,6 +20,7 @@ import { Route as ReuiMembersRouteImport } from './routes/reui/members'
 import { Route as ReuiLoginRouteImport } from './routes/reui/login'
 import { Route as ReuiKanbanRouteImport } from './routes/reui/kanban'
 import { Route as ReuiDashboardRouteImport } from './routes/reui/dashboard'
+import { Route as ReuiBlocksRouteImport } from './routes/reui/blocks'
 import { Route as ReuiAnalyticsRouteImport } from './routes/reui/analytics'
 import { Route as NovaWizardRouteImport } from './routes/nova/wizard'
 import { Route as NovaStatusRouteImport } from './routes/nova/status'
@@ -42,6 +43,13 @@ import { Route as NovaAuditLogsRouteImport } from './routes/nova/audit-logs'
 import { Route as NovaApprovalsRouteImport } from './routes/nova/approvals'
 import { Route as NovaAnalyticsRouteImport } from './routes/nova/analytics'
 import { Route as NovaAlertsRouteImport } from './routes/nova/alerts'
+import { Route as ReuiBlocksIndexRouteImport } from './routes/reui/blocks/index'
+import { Route as ReuiBlocksSolutionsRouteImport } from './routes/reui/blocks/solutions'
+import { Route as ReuiBlocksProRouteImport } from './routes/reui/blocks/pro'
+import { Route as ReuiBlocksDataGridRouteImport } from './routes/reui/blocks/data-grid'
+import { Route as ReuiBlocksChartsRouteImport } from './routes/reui/blocks/charts'
+import { Route as ReuiBlocksApplicationRouteImport } from './routes/reui/blocks/application'
+import { Route as ReuiBlocksAiRouteImport } from './routes/reui/blocks/ai'
 
 const ReuiRoute = ReuiRouteImport.update({
   id: '/reui',
@@ -96,6 +104,11 @@ const ReuiKanbanRoute = ReuiKanbanRouteImport.update({
 const ReuiDashboardRoute = ReuiDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
+  getParentRoute: () => ReuiRoute,
+} as any)
+const ReuiBlocksRoute = ReuiBlocksRouteImport.update({
+  id: '/blocks',
+  path: '/blocks',
   getParentRoute: () => ReuiRoute,
 } as any)
 const ReuiAnalyticsRoute = ReuiAnalyticsRouteImport.update({
@@ -208,6 +221,41 @@ const NovaAlertsRoute = NovaAlertsRouteImport.update({
   path: '/nova/alerts',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ReuiBlocksIndexRoute = ReuiBlocksIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ReuiBlocksRoute,
+} as any)
+const ReuiBlocksSolutionsRoute = ReuiBlocksSolutionsRouteImport.update({
+  id: '/solutions',
+  path: '/solutions',
+  getParentRoute: () => ReuiBlocksRoute,
+} as any)
+const ReuiBlocksProRoute = ReuiBlocksProRouteImport.update({
+  id: '/pro',
+  path: '/pro',
+  getParentRoute: () => ReuiBlocksRoute,
+} as any)
+const ReuiBlocksDataGridRoute = ReuiBlocksDataGridRouteImport.update({
+  id: '/data-grid',
+  path: '/data-grid',
+  getParentRoute: () => ReuiBlocksRoute,
+} as any)
+const ReuiBlocksChartsRoute = ReuiBlocksChartsRouteImport.update({
+  id: '/charts',
+  path: '/charts',
+  getParentRoute: () => ReuiBlocksRoute,
+} as any)
+const ReuiBlocksApplicationRoute = ReuiBlocksApplicationRouteImport.update({
+  id: '/application',
+  path: '/application',
+  getParentRoute: () => ReuiBlocksRoute,
+} as any)
+const ReuiBlocksAiRoute = ReuiBlocksAiRouteImport.update({
+  id: '/ai',
+  path: '/ai',
+  getParentRoute: () => ReuiBlocksRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -234,6 +282,7 @@ export interface FileRoutesByFullPath {
   '/nova/status': typeof NovaStatusRoute
   '/nova/wizard': typeof NovaWizardRoute
   '/reui/analytics': typeof ReuiAnalyticsRoute
+  '/reui/blocks': typeof ReuiBlocksRouteWithChildren
   '/reui/dashboard': typeof ReuiDashboardRoute
   '/reui/kanban': typeof ReuiKanbanRoute
   '/reui/login': typeof ReuiLoginRoute
@@ -243,6 +292,13 @@ export interface FileRoutesByFullPath {
   '/reui/settings': typeof ReuiSettingsRoute
   '/nova/': typeof NovaIndexRoute
   '/reui/': typeof ReuiIndexRoute
+  '/reui/blocks/ai': typeof ReuiBlocksAiRoute
+  '/reui/blocks/application': typeof ReuiBlocksApplicationRoute
+  '/reui/blocks/charts': typeof ReuiBlocksChartsRoute
+  '/reui/blocks/data-grid': typeof ReuiBlocksDataGridRoute
+  '/reui/blocks/pro': typeof ReuiBlocksProRoute
+  '/reui/blocks/solutions': typeof ReuiBlocksSolutionsRoute
+  '/reui/blocks/': typeof ReuiBlocksIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -277,6 +333,13 @@ export interface FileRoutesByTo {
   '/reui/settings': typeof ReuiSettingsRoute
   '/nova': typeof NovaIndexRoute
   '/reui': typeof ReuiIndexRoute
+  '/reui/blocks/ai': typeof ReuiBlocksAiRoute
+  '/reui/blocks/application': typeof ReuiBlocksApplicationRoute
+  '/reui/blocks/charts': typeof ReuiBlocksChartsRoute
+  '/reui/blocks/data-grid': typeof ReuiBlocksDataGridRoute
+  '/reui/blocks/pro': typeof ReuiBlocksProRoute
+  '/reui/blocks/solutions': typeof ReuiBlocksSolutionsRoute
+  '/reui/blocks': typeof ReuiBlocksIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -304,6 +367,7 @@ export interface FileRoutesById {
   '/nova/status': typeof NovaStatusRoute
   '/nova/wizard': typeof NovaWizardRoute
   '/reui/analytics': typeof ReuiAnalyticsRoute
+  '/reui/blocks': typeof ReuiBlocksRouteWithChildren
   '/reui/dashboard': typeof ReuiDashboardRoute
   '/reui/kanban': typeof ReuiKanbanRoute
   '/reui/login': typeof ReuiLoginRoute
@@ -313,6 +377,13 @@ export interface FileRoutesById {
   '/reui/settings': typeof ReuiSettingsRoute
   '/nova/': typeof NovaIndexRoute
   '/reui/': typeof ReuiIndexRoute
+  '/reui/blocks/ai': typeof ReuiBlocksAiRoute
+  '/reui/blocks/application': typeof ReuiBlocksApplicationRoute
+  '/reui/blocks/charts': typeof ReuiBlocksChartsRoute
+  '/reui/blocks/data-grid': typeof ReuiBlocksDataGridRoute
+  '/reui/blocks/pro': typeof ReuiBlocksProRoute
+  '/reui/blocks/solutions': typeof ReuiBlocksSolutionsRoute
+  '/reui/blocks/': typeof ReuiBlocksIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -341,6 +412,7 @@ export interface FileRouteTypes {
     | '/nova/status'
     | '/nova/wizard'
     | '/reui/analytics'
+    | '/reui/blocks'
     | '/reui/dashboard'
     | '/reui/kanban'
     | '/reui/login'
@@ -350,6 +422,13 @@ export interface FileRouteTypes {
     | '/reui/settings'
     | '/nova/'
     | '/reui/'
+    | '/reui/blocks/ai'
+    | '/reui/blocks/application'
+    | '/reui/blocks/charts'
+    | '/reui/blocks/data-grid'
+    | '/reui/blocks/pro'
+    | '/reui/blocks/solutions'
+    | '/reui/blocks/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -384,6 +463,13 @@ export interface FileRouteTypes {
     | '/reui/settings'
     | '/nova'
     | '/reui'
+    | '/reui/blocks/ai'
+    | '/reui/blocks/application'
+    | '/reui/blocks/charts'
+    | '/reui/blocks/data-grid'
+    | '/reui/blocks/pro'
+    | '/reui/blocks/solutions'
+    | '/reui/blocks'
   id:
     | '__root__'
     | '/'
@@ -410,6 +496,7 @@ export interface FileRouteTypes {
     | '/nova/status'
     | '/nova/wizard'
     | '/reui/analytics'
+    | '/reui/blocks'
     | '/reui/dashboard'
     | '/reui/kanban'
     | '/reui/login'
@@ -419,6 +506,13 @@ export interface FileRouteTypes {
     | '/reui/settings'
     | '/nova/'
     | '/reui/'
+    | '/reui/blocks/ai'
+    | '/reui/blocks/application'
+    | '/reui/blocks/charts'
+    | '/reui/blocks/data-grid'
+    | '/reui/blocks/pro'
+    | '/reui/blocks/solutions'
+    | '/reui/blocks/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -525,6 +619,13 @@ declare module '@tanstack/react-router' {
       path: '/dashboard'
       fullPath: '/reui/dashboard'
       preLoaderRoute: typeof ReuiDashboardRouteImport
+      parentRoute: typeof ReuiRoute
+    }
+    '/reui/blocks': {
+      id: '/reui/blocks'
+      path: '/blocks'
+      fullPath: '/reui/blocks'
+      preLoaderRoute: typeof ReuiBlocksRouteImport
       parentRoute: typeof ReuiRoute
     }
     '/reui/analytics': {
@@ -681,11 +782,85 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NovaAlertsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/reui/blocks/': {
+      id: '/reui/blocks/'
+      path: '/'
+      fullPath: '/reui/blocks/'
+      preLoaderRoute: typeof ReuiBlocksIndexRouteImport
+      parentRoute: typeof ReuiBlocksRoute
+    }
+    '/reui/blocks/solutions': {
+      id: '/reui/blocks/solutions'
+      path: '/solutions'
+      fullPath: '/reui/blocks/solutions'
+      preLoaderRoute: typeof ReuiBlocksSolutionsRouteImport
+      parentRoute: typeof ReuiBlocksRoute
+    }
+    '/reui/blocks/pro': {
+      id: '/reui/blocks/pro'
+      path: '/pro'
+      fullPath: '/reui/blocks/pro'
+      preLoaderRoute: typeof ReuiBlocksProRouteImport
+      parentRoute: typeof ReuiBlocksRoute
+    }
+    '/reui/blocks/data-grid': {
+      id: '/reui/blocks/data-grid'
+      path: '/data-grid'
+      fullPath: '/reui/blocks/data-grid'
+      preLoaderRoute: typeof ReuiBlocksDataGridRouteImport
+      parentRoute: typeof ReuiBlocksRoute
+    }
+    '/reui/blocks/charts': {
+      id: '/reui/blocks/charts'
+      path: '/charts'
+      fullPath: '/reui/blocks/charts'
+      preLoaderRoute: typeof ReuiBlocksChartsRouteImport
+      parentRoute: typeof ReuiBlocksRoute
+    }
+    '/reui/blocks/application': {
+      id: '/reui/blocks/application'
+      path: '/application'
+      fullPath: '/reui/blocks/application'
+      preLoaderRoute: typeof ReuiBlocksApplicationRouteImport
+      parentRoute: typeof ReuiBlocksRoute
+    }
+    '/reui/blocks/ai': {
+      id: '/reui/blocks/ai'
+      path: '/ai'
+      fullPath: '/reui/blocks/ai'
+      preLoaderRoute: typeof ReuiBlocksAiRouteImport
+      parentRoute: typeof ReuiBlocksRoute
+    }
   }
 }
 
+interface ReuiBlocksRouteChildren {
+  ReuiBlocksAiRoute: typeof ReuiBlocksAiRoute
+  ReuiBlocksApplicationRoute: typeof ReuiBlocksApplicationRoute
+  ReuiBlocksChartsRoute: typeof ReuiBlocksChartsRoute
+  ReuiBlocksDataGridRoute: typeof ReuiBlocksDataGridRoute
+  ReuiBlocksProRoute: typeof ReuiBlocksProRoute
+  ReuiBlocksSolutionsRoute: typeof ReuiBlocksSolutionsRoute
+  ReuiBlocksIndexRoute: typeof ReuiBlocksIndexRoute
+}
+
+const ReuiBlocksRouteChildren: ReuiBlocksRouteChildren = {
+  ReuiBlocksAiRoute: ReuiBlocksAiRoute,
+  ReuiBlocksApplicationRoute: ReuiBlocksApplicationRoute,
+  ReuiBlocksChartsRoute: ReuiBlocksChartsRoute,
+  ReuiBlocksDataGridRoute: ReuiBlocksDataGridRoute,
+  ReuiBlocksProRoute: ReuiBlocksProRoute,
+  ReuiBlocksSolutionsRoute: ReuiBlocksSolutionsRoute,
+  ReuiBlocksIndexRoute: ReuiBlocksIndexRoute,
+}
+
+const ReuiBlocksRouteWithChildren = ReuiBlocksRoute._addFileChildren(
+  ReuiBlocksRouteChildren,
+)
+
 interface ReuiRouteChildren {
   ReuiAnalyticsRoute: typeof ReuiAnalyticsRoute
+  ReuiBlocksRoute: typeof ReuiBlocksRouteWithChildren
   ReuiDashboardRoute: typeof ReuiDashboardRoute
   ReuiKanbanRoute: typeof ReuiKanbanRoute
   ReuiLoginRoute: typeof ReuiLoginRoute
@@ -698,6 +873,7 @@ interface ReuiRouteChildren {
 
 const ReuiRouteChildren: ReuiRouteChildren = {
   ReuiAnalyticsRoute: ReuiAnalyticsRoute,
+  ReuiBlocksRoute: ReuiBlocksRouteWithChildren,
   ReuiDashboardRoute: ReuiDashboardRoute,
   ReuiKanbanRoute: ReuiKanbanRoute,
   ReuiLoginRoute: ReuiLoginRoute,
