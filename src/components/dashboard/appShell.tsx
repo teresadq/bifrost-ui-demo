@@ -1,5 +1,5 @@
 import { Link, useLocation, useNavigate } from "@tanstack/react-router";
-import { Bell, ChevronRight, LogOut, PanelLeft, Search } from "lucide-react";
+import { Bell, ChevronRight, LogOut, PanelLeft, Search, ArrowLeftRight, Check } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { toast } from "sonner";
 
@@ -102,7 +102,7 @@ function Sidebar({ onSearch }: { onSearch: () => void }) {
 						<p className="text-muted-foreground truncate text-[11px]">admin@nova.dev</p>
 					</div>
 					<Button variant="ghost" size="icon" className="text-muted-foreground size-7" aria-label="个人资料" asChild>
-						<Link to="/profile">
+						<Link to="/nova/profile">
 							<ChevronRight className="size-3.5" />
 						</Link>
 					</Button>
@@ -120,12 +120,12 @@ function Topbar({ onSearch }: { onSearch: () => void }) {
 	function logout() {
 		localStorage.removeItem("nova:user");
 		toast.success("已退出登录");
-		void navigate({ to: "/login" });
+		void navigate({ to: "/nova/login" });
 	}
 
 	return (
 		<header className="bg-card sticky top-0 z-10 flex h-14 items-center gap-3 border-b px-4 md:px-6">
-			<Link to="/dashboard" className="md:hidden">
+			<Link to="/nova/dashboard" className="md:hidden">
 				<Brand markClassName="size-7" />
 			</Link>
 
@@ -148,8 +148,44 @@ function Topbar({ onSearch }: { onSearch: () => void }) {
 
 				<ThemeToggle />
 
+				<DropdownMenu>
+					<DropdownMenuTrigger asChild>
+						<button
+							type="button"
+							className="text-muted-foreground hover:bg-accent hover:text-foreground flex h-8 cursor-pointer items-center gap-1.5 rounded-md px-2 text-xs transition-colors"
+						>
+							<ArrowLeftRight className="size-3.5" />
+							<span className="hidden lg:inline">风格</span>
+						</button>
+					</DropdownMenuTrigger>
+					<DropdownMenuContent align="end" className="w-56">
+						<DropdownMenuLabel className="text-muted-foreground text-[10px] font-medium tracking-wider uppercase">
+							演示风格
+						</DropdownMenuLabel>
+						<DropdownMenuItem asChild>
+							<Link to="/nova/dashboard" className="cursor-pointer">
+								<Check className="size-3.5" />
+								Bifrost · 当前风格
+							</Link>
+						</DropdownMenuItem>
+						<DropdownMenuItem asChild>
+							<Link to="/reui/dashboard" className="cursor-pointer">
+								<span className="size-3.5" />
+								ReUI · 近黑圆润
+							</Link>
+						</DropdownMenuItem>
+						<DropdownMenuSeparator />
+						<DropdownMenuItem asChild>
+							<Link to="/" className="cursor-pointer">
+								<ArrowLeftRight className="size-3.5" />
+								返回风格选择页
+							</Link>
+						</DropdownMenuItem>
+					</DropdownMenuContent>
+				</DropdownMenu>
+
 				<Button variant="ghost" size="icon" className="text-muted-foreground relative size-8" aria-label="通知" asChild>
-					<Link to="/notifications">
+					<Link to="/nova/notifications">
 						<Bell className="size-4" />
 						<span className="bg-destructive absolute top-1.5 right-1.5 size-1.5 rounded-full ring-2 ring-card" />
 					</Link>
@@ -178,13 +214,13 @@ function Topbar({ onSearch }: { onSearch: () => void }) {
 						</DropdownMenuLabel>
 						<DropdownMenuSeparator />
 						<DropdownMenuItem asChild>
-							<Link to="/profile">个人资料</Link>
+							<Link to="/nova/profile">个人资料</Link>
 						</DropdownMenuItem>
 						<DropdownMenuItem asChild>
-							<Link to="/settings">团队设置</Link>
+							<Link to="/nova/settings">团队设置</Link>
 						</DropdownMenuItem>
 						<DropdownMenuItem asChild>
-							<Link to="/billing">账单与用量</Link>
+							<Link to="/nova/billing">账单与用量</Link>
 						</DropdownMenuItem>
 						<DropdownMenuSeparator />
 						<DropdownMenuItem variant="destructive" onClick={logout}>

@@ -13,7 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Switch } from "@/components/ui/switch";
 import { cn } from "@/lib/utils";
 
-export const Route = createFileRoute("/logs")({
+export const Route = createFileRoute("/nova/logs")({
 	component: LogsPage,
 });
 

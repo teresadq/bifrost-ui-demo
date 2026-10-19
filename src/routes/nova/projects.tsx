@@ -31,7 +31,7 @@ import { Switch } from "@/components/ui/switch";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
 
-export const Route = createFileRoute("/projects")({
+export const Route = createFileRoute("/nova/projects")({
 	component: ProjectsPage,
 });
 
@@ -260,7 +260,7 @@ function ProjectsPage() {
 				description="按项目分配预算、访问规则和成员。支持筛选、排序、批量操作与列自定义。"
 				actions={
 					<Button asChild>
-						<Link to="/wizard">
+						<Link to="/nova/wizard">
 							<Plus className="size-4" />
 							新建项目
 						</Link>

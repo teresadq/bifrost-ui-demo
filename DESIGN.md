@@ -204,3 +204,44 @@
 - 提交表单：`await new Promise(r => setTimeout(r, 800~900))` 后 toast + 跳转
 - 登录用户信息写入 `localStorage["nova:user"]`，Dashboard 读取姓名；退出登录时清除
 - 未实现的入口统一 `toast.info("… 不在本次演示范围内")`
+
+## 10. ReUI 风格演示（`/reui/*`）
+
+ReUI 演示与 Bifrost 演示共享业务数据与页面结构，但使用另一套设计令牌与组件外壳，用于对比两种设计语言。
+
+### 开关机制
+
+- `src/routes/index.tsx` 是风格选择页，提供两张预览卡。
+- `src/components/styleScope.tsx` 监听路由；路径以 `/reui` 开头时给 `<html>` 加 `style-reui`，离开时移除。
+- 令牌覆盖写在 `src/styles/globals.css` 的 `.style-reui` / `.style-reui.dark` 中，因此 Radix portal、toast、下拉菜单也会自动继承。
+- 两套控制台顶栏都提供风格下拉，可随时跳转 `/nova/*` 或 `/reui/*`。
+
+### 令牌差异
+
+| 维度 | Bifrost（`/nova`） | ReUI（`/reui`） |
+| --- | --- | --- |
+| 字体 | Geist | Inter Variable |
+| 主色 | 墨绿 `oklch(0.5081 0.1049 165.61)` | 近黑 `oklch(0.205 0 0)` |
+| 圆角 | `--radius: 0.5rem` | `--radius: 0.625rem` |
+| 表面 | 灰底白卡、紧凑 | 近白底、更大留白与卡片 |
+| 图表 | 墨绿/靛蓝/紫 | 靛蓝/紫/翠绿/琥珀 |
+| 导航激活 | 浅灰底 + 深色图标 | 黑色实心胶囊 + 反白文字 |
+
+### ReUI 组件层
+
+- `components/reui/ui.tsx`：`ReCard`、`ReBadge`、`ReButton`、`ReIconTile`、`ReProgress`、`ReAvatarStack`、`RePageHeader` 等。
+- `components/reui/reuiShell.tsx`：白色侧边栏 + 工作区切换 + 页面搜索 + 风格切换 + 移动端抽屉。
+- `components/reui/charts.tsx`：`Sparkline` 与统一 tooltip 样式。
+- `components/reui/kanban.tsx`：ReUI 开源 Kanban（dnd-kit），支持卡片跨列/同列排序、列排序、拖拽浮层与键盘拖拽。
+- `components/reui/data.ts`：ReUI 演示专用的看板任务、项目、成员、成本数据。
+
+### 页面约定
+
+- 认证页使用左侧表单 + 右侧深色产品展示面板；不套控制台外壳。
+- 概览与 Bifrost 版保持同样的数据口径（`lib/mockData.ts`），但图表尺寸、卡片圆角与信息层级更宽松。
+- 看板页的任务卡包含优先级、标签、子任务进度、负责人、截止日期与评论数；拖拽通过 `KanbanItemHandle` 触发，避免误触。
+- 表格页统一使用 `ReCard` 包裹，表头浅灰、行悬停 `bg-secondary/40`，分页与批量操作与 Bifrost 版功能对齐。
+
+### 版权说明
+
+仅使用 [keenthemes/reui](https://github.com/keenthemes/reui) 仓库中 MIT 协议的免费组件与示例。ReUI 的 Application Blocks（包括 Kanban Board block）属于 Pro 付费内容，本项目未抓取或包含。

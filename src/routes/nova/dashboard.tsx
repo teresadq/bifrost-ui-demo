@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 import { STATS } from "@/lib/mockData";
 import { cn } from "@/lib/utils";
 
-export const Route = createFileRoute("/dashboard")({
+export const Route = createFileRoute("/nova/dashboard")({
 	component: DashboardPage,
 });
 

@@ -15,7 +15,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 
-export const Route = createFileRoute("/profile")({
+export const Route = createFileRoute("/nova/profile")({
 	component: ProfilePage,
 });
 

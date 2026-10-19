@@ -9,132 +9,43 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as WizardRouteImport } from './routes/wizard'
-import { Route as StatusRouteImport } from './routes/status'
-import { Route as SettingsRouteImport } from './routes/settings'
-import { Route as RolesRouteImport } from './routes/roles'
-import { Route as RegisterRouteImport } from './routes/register'
-import { Route as ProvidersRouteImport } from './routes/providers'
-import { Route as ProjectsRouteImport } from './routes/projects'
-import { Route as ProfileRouteImport } from './routes/profile'
-import { Route as NotificationsRouteImport } from './routes/notifications'
-import { Route as ModelsRouteImport } from './routes/models'
-import { Route as MembersRouteImport } from './routes/members'
-import { Route as LogsRouteImport } from './routes/logs'
-import { Route as LoginRouteImport } from './routes/login'
-import { Route as KeysRouteImport } from './routes/keys'
-import { Route as HelpRouteImport } from './routes/help'
-import { Route as DashboardRouteImport } from './routes/dashboard'
-import { Route as BillingRouteImport } from './routes/billing'
-import { Route as AuditLogsRouteImport } from './routes/audit-logs'
-import { Route as ApprovalsRouteImport } from './routes/approvals'
-import { Route as AnalyticsRouteImport } from './routes/analytics'
-import { Route as AlertsRouteImport } from './routes/alerts'
+import { Route as ReuiRouteImport } from './routes/reui'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ReuiIndexRouteImport } from './routes/reui/index'
+import { Route as NovaIndexRouteImport } from './routes/nova/index'
+import { Route as ReuiSettingsRouteImport } from './routes/reui/settings'
+import { Route as ReuiRegisterRouteImport } from './routes/reui/register'
+import { Route as ReuiProjectsRouteImport } from './routes/reui/projects'
+import { Route as ReuiMembersRouteImport } from './routes/reui/members'
+import { Route as ReuiLoginRouteImport } from './routes/reui/login'
+import { Route as ReuiKanbanRouteImport } from './routes/reui/kanban'
+import { Route as ReuiDashboardRouteImport } from './routes/reui/dashboard'
+import { Route as ReuiAnalyticsRouteImport } from './routes/reui/analytics'
+import { Route as NovaWizardRouteImport } from './routes/nova/wizard'
+import { Route as NovaStatusRouteImport } from './routes/nova/status'
+import { Route as NovaSettingsRouteImport } from './routes/nova/settings'
+import { Route as NovaRolesRouteImport } from './routes/nova/roles'
+import { Route as NovaRegisterRouteImport } from './routes/nova/register'
+import { Route as NovaProvidersRouteImport } from './routes/nova/providers'
+import { Route as NovaProjectsRouteImport } from './routes/nova/projects'
+import { Route as NovaProfileRouteImport } from './routes/nova/profile'
+import { Route as NovaNotificationsRouteImport } from './routes/nova/notifications'
+import { Route as NovaModelsRouteImport } from './routes/nova/models'
+import { Route as NovaMembersRouteImport } from './routes/nova/members'
+import { Route as NovaLogsRouteImport } from './routes/nova/logs'
+import { Route as NovaLoginRouteImport } from './routes/nova/login'
+import { Route as NovaKeysRouteImport } from './routes/nova/keys'
+import { Route as NovaHelpRouteImport } from './routes/nova/help'
+import { Route as NovaDashboardRouteImport } from './routes/nova/dashboard'
+import { Route as NovaBillingRouteImport } from './routes/nova/billing'
+import { Route as NovaAuditLogsRouteImport } from './routes/nova/audit-logs'
+import { Route as NovaApprovalsRouteImport } from './routes/nova/approvals'
+import { Route as NovaAnalyticsRouteImport } from './routes/nova/analytics'
+import { Route as NovaAlertsRouteImport } from './routes/nova/alerts'
 
-const WizardRoute = WizardRouteImport.update({
-  id: '/wizard',
-  path: '/wizard',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const StatusRoute = StatusRouteImport.update({
-  id: '/status',
-  path: '/status',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SettingsRoute = SettingsRouteImport.update({
-  id: '/settings',
-  path: '/settings',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const RolesRoute = RolesRouteImport.update({
-  id: '/roles',
-  path: '/roles',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const RegisterRoute = RegisterRouteImport.update({
-  id: '/register',
-  path: '/register',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ProvidersRoute = ProvidersRouteImport.update({
-  id: '/providers',
-  path: '/providers',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ProjectsRoute = ProjectsRouteImport.update({
-  id: '/projects',
-  path: '/projects',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ProfileRoute = ProfileRouteImport.update({
-  id: '/profile',
-  path: '/profile',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const NotificationsRoute = NotificationsRouteImport.update({
-  id: '/notifications',
-  path: '/notifications',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ModelsRoute = ModelsRouteImport.update({
-  id: '/models',
-  path: '/models',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MembersRoute = MembersRouteImport.update({
-  id: '/members',
-  path: '/members',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LogsRoute = LogsRouteImport.update({
-  id: '/logs',
-  path: '/logs',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LoginRoute = LoginRouteImport.update({
-  id: '/login',
-  path: '/login',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const KeysRoute = KeysRouteImport.update({
-  id: '/keys',
-  path: '/keys',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const HelpRoute = HelpRouteImport.update({
-  id: '/help',
-  path: '/help',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DashboardRoute = DashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const BillingRoute = BillingRouteImport.update({
-  id: '/billing',
-  path: '/billing',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuditLogsRoute = AuditLogsRouteImport.update({
-  id: '/audit-logs',
-  path: '/audit-logs',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApprovalsRoute = ApprovalsRouteImport.update({
-  id: '/approvals',
-  path: '/approvals',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AnalyticsRoute = AnalyticsRouteImport.update({
-  id: '/analytics',
-  path: '/analytics',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AlertsRoute = AlertsRouteImport.update({
-  id: '/alerts',
-  path: '/alerts',
+const ReuiRoute = ReuiRouteImport.update({
+  id: '/reui',
+  path: '/reui',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -142,327 +53,408 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ReuiIndexRoute = ReuiIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ReuiRoute,
+} as any)
+const NovaIndexRoute = NovaIndexRouteImport.update({
+  id: '/nova/',
+  path: '/nova/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReuiSettingsRoute = ReuiSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => ReuiRoute,
+} as any)
+const ReuiRegisterRoute = ReuiRegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => ReuiRoute,
+} as any)
+const ReuiProjectsRoute = ReuiProjectsRouteImport.update({
+  id: '/projects',
+  path: '/projects',
+  getParentRoute: () => ReuiRoute,
+} as any)
+const ReuiMembersRoute = ReuiMembersRouteImport.update({
+  id: '/members',
+  path: '/members',
+  getParentRoute: () => ReuiRoute,
+} as any)
+const ReuiLoginRoute = ReuiLoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => ReuiRoute,
+} as any)
+const ReuiKanbanRoute = ReuiKanbanRouteImport.update({
+  id: '/kanban',
+  path: '/kanban',
+  getParentRoute: () => ReuiRoute,
+} as any)
+const ReuiDashboardRoute = ReuiDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => ReuiRoute,
+} as any)
+const ReuiAnalyticsRoute = ReuiAnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => ReuiRoute,
+} as any)
+const NovaWizardRoute = NovaWizardRouteImport.update({
+  id: '/nova/wizard',
+  path: '/nova/wizard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NovaStatusRoute = NovaStatusRouteImport.update({
+  id: '/nova/status',
+  path: '/nova/status',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NovaSettingsRoute = NovaSettingsRouteImport.update({
+  id: '/nova/settings',
+  path: '/nova/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NovaRolesRoute = NovaRolesRouteImport.update({
+  id: '/nova/roles',
+  path: '/nova/roles',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NovaRegisterRoute = NovaRegisterRouteImport.update({
+  id: '/nova/register',
+  path: '/nova/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NovaProvidersRoute = NovaProvidersRouteImport.update({
+  id: '/nova/providers',
+  path: '/nova/providers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NovaProjectsRoute = NovaProjectsRouteImport.update({
+  id: '/nova/projects',
+  path: '/nova/projects',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NovaProfileRoute = NovaProfileRouteImport.update({
+  id: '/nova/profile',
+  path: '/nova/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NovaNotificationsRoute = NovaNotificationsRouteImport.update({
+  id: '/nova/notifications',
+  path: '/nova/notifications',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NovaModelsRoute = NovaModelsRouteImport.update({
+  id: '/nova/models',
+  path: '/nova/models',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NovaMembersRoute = NovaMembersRouteImport.update({
+  id: '/nova/members',
+  path: '/nova/members',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NovaLogsRoute = NovaLogsRouteImport.update({
+  id: '/nova/logs',
+  path: '/nova/logs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NovaLoginRoute = NovaLoginRouteImport.update({
+  id: '/nova/login',
+  path: '/nova/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NovaKeysRoute = NovaKeysRouteImport.update({
+  id: '/nova/keys',
+  path: '/nova/keys',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NovaHelpRoute = NovaHelpRouteImport.update({
+  id: '/nova/help',
+  path: '/nova/help',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NovaDashboardRoute = NovaDashboardRouteImport.update({
+  id: '/nova/dashboard',
+  path: '/nova/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NovaBillingRoute = NovaBillingRouteImport.update({
+  id: '/nova/billing',
+  path: '/nova/billing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NovaAuditLogsRoute = NovaAuditLogsRouteImport.update({
+  id: '/nova/audit-logs',
+  path: '/nova/audit-logs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NovaApprovalsRoute = NovaApprovalsRouteImport.update({
+  id: '/nova/approvals',
+  path: '/nova/approvals',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NovaAnalyticsRoute = NovaAnalyticsRouteImport.update({
+  id: '/nova/analytics',
+  path: '/nova/analytics',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NovaAlertsRoute = NovaAlertsRouteImport.update({
+  id: '/nova/alerts',
+  path: '/nova/alerts',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/alerts': typeof AlertsRoute
-  '/analytics': typeof AnalyticsRoute
-  '/approvals': typeof ApprovalsRoute
-  '/audit-logs': typeof AuditLogsRoute
-  '/billing': typeof BillingRoute
-  '/dashboard': typeof DashboardRoute
-  '/help': typeof HelpRoute
-  '/keys': typeof KeysRoute
-  '/login': typeof LoginRoute
-  '/logs': typeof LogsRoute
-  '/members': typeof MembersRoute
-  '/models': typeof ModelsRoute
-  '/notifications': typeof NotificationsRoute
-  '/profile': typeof ProfileRoute
-  '/projects': typeof ProjectsRoute
-  '/providers': typeof ProvidersRoute
-  '/register': typeof RegisterRoute
-  '/roles': typeof RolesRoute
-  '/settings': typeof SettingsRoute
-  '/status': typeof StatusRoute
-  '/wizard': typeof WizardRoute
+  '/reui': typeof ReuiRouteWithChildren
+  '/nova/alerts': typeof NovaAlertsRoute
+  '/nova/analytics': typeof NovaAnalyticsRoute
+  '/nova/approvals': typeof NovaApprovalsRoute
+  '/nova/audit-logs': typeof NovaAuditLogsRoute
+  '/nova/billing': typeof NovaBillingRoute
+  '/nova/dashboard': typeof NovaDashboardRoute
+  '/nova/help': typeof NovaHelpRoute
+  '/nova/keys': typeof NovaKeysRoute
+  '/nova/login': typeof NovaLoginRoute
+  '/nova/logs': typeof NovaLogsRoute
+  '/nova/members': typeof NovaMembersRoute
+  '/nova/models': typeof NovaModelsRoute
+  '/nova/notifications': typeof NovaNotificationsRoute
+  '/nova/profile': typeof NovaProfileRoute
+  '/nova/projects': typeof NovaProjectsRoute
+  '/nova/providers': typeof NovaProvidersRoute
+  '/nova/register': typeof NovaRegisterRoute
+  '/nova/roles': typeof NovaRolesRoute
+  '/nova/settings': typeof NovaSettingsRoute
+  '/nova/status': typeof NovaStatusRoute
+  '/nova/wizard': typeof NovaWizardRoute
+  '/reui/analytics': typeof ReuiAnalyticsRoute
+  '/reui/dashboard': typeof ReuiDashboardRoute
+  '/reui/kanban': typeof ReuiKanbanRoute
+  '/reui/login': typeof ReuiLoginRoute
+  '/reui/members': typeof ReuiMembersRoute
+  '/reui/projects': typeof ReuiProjectsRoute
+  '/reui/register': typeof ReuiRegisterRoute
+  '/reui/settings': typeof ReuiSettingsRoute
+  '/nova/': typeof NovaIndexRoute
+  '/reui/': typeof ReuiIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/alerts': typeof AlertsRoute
-  '/analytics': typeof AnalyticsRoute
-  '/approvals': typeof ApprovalsRoute
-  '/audit-logs': typeof AuditLogsRoute
-  '/billing': typeof BillingRoute
-  '/dashboard': typeof DashboardRoute
-  '/help': typeof HelpRoute
-  '/keys': typeof KeysRoute
-  '/login': typeof LoginRoute
-  '/logs': typeof LogsRoute
-  '/members': typeof MembersRoute
-  '/models': typeof ModelsRoute
-  '/notifications': typeof NotificationsRoute
-  '/profile': typeof ProfileRoute
-  '/projects': typeof ProjectsRoute
-  '/providers': typeof ProvidersRoute
-  '/register': typeof RegisterRoute
-  '/roles': typeof RolesRoute
-  '/settings': typeof SettingsRoute
-  '/status': typeof StatusRoute
-  '/wizard': typeof WizardRoute
+  '/nova/alerts': typeof NovaAlertsRoute
+  '/nova/analytics': typeof NovaAnalyticsRoute
+  '/nova/approvals': typeof NovaApprovalsRoute
+  '/nova/audit-logs': typeof NovaAuditLogsRoute
+  '/nova/billing': typeof NovaBillingRoute
+  '/nova/dashboard': typeof NovaDashboardRoute
+  '/nova/help': typeof NovaHelpRoute
+  '/nova/keys': typeof NovaKeysRoute
+  '/nova/login': typeof NovaLoginRoute
+  '/nova/logs': typeof NovaLogsRoute
+  '/nova/members': typeof NovaMembersRoute
+  '/nova/models': typeof NovaModelsRoute
+  '/nova/notifications': typeof NovaNotificationsRoute
+  '/nova/profile': typeof NovaProfileRoute
+  '/nova/projects': typeof NovaProjectsRoute
+  '/nova/providers': typeof NovaProvidersRoute
+  '/nova/register': typeof NovaRegisterRoute
+  '/nova/roles': typeof NovaRolesRoute
+  '/nova/settings': typeof NovaSettingsRoute
+  '/nova/status': typeof NovaStatusRoute
+  '/nova/wizard': typeof NovaWizardRoute
+  '/reui/analytics': typeof ReuiAnalyticsRoute
+  '/reui/dashboard': typeof ReuiDashboardRoute
+  '/reui/kanban': typeof ReuiKanbanRoute
+  '/reui/login': typeof ReuiLoginRoute
+  '/reui/members': typeof ReuiMembersRoute
+  '/reui/projects': typeof ReuiProjectsRoute
+  '/reui/register': typeof ReuiRegisterRoute
+  '/reui/settings': typeof ReuiSettingsRoute
+  '/nova': typeof NovaIndexRoute
+  '/reui': typeof ReuiIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/alerts': typeof AlertsRoute
-  '/analytics': typeof AnalyticsRoute
-  '/approvals': typeof ApprovalsRoute
-  '/audit-logs': typeof AuditLogsRoute
-  '/billing': typeof BillingRoute
-  '/dashboard': typeof DashboardRoute
-  '/help': typeof HelpRoute
-  '/keys': typeof KeysRoute
-  '/login': typeof LoginRoute
-  '/logs': typeof LogsRoute
-  '/members': typeof MembersRoute
-  '/models': typeof ModelsRoute
-  '/notifications': typeof NotificationsRoute
-  '/profile': typeof ProfileRoute
-  '/projects': typeof ProjectsRoute
-  '/providers': typeof ProvidersRoute
-  '/register': typeof RegisterRoute
-  '/roles': typeof RolesRoute
-  '/settings': typeof SettingsRoute
-  '/status': typeof StatusRoute
-  '/wizard': typeof WizardRoute
+  '/reui': typeof ReuiRouteWithChildren
+  '/nova/alerts': typeof NovaAlertsRoute
+  '/nova/analytics': typeof NovaAnalyticsRoute
+  '/nova/approvals': typeof NovaApprovalsRoute
+  '/nova/audit-logs': typeof NovaAuditLogsRoute
+  '/nova/billing': typeof NovaBillingRoute
+  '/nova/dashboard': typeof NovaDashboardRoute
+  '/nova/help': typeof NovaHelpRoute
+  '/nova/keys': typeof NovaKeysRoute
+  '/nova/login': typeof NovaLoginRoute
+  '/nova/logs': typeof NovaLogsRoute
+  '/nova/members': typeof NovaMembersRoute
+  '/nova/models': typeof NovaModelsRoute
+  '/nova/notifications': typeof NovaNotificationsRoute
+  '/nova/profile': typeof NovaProfileRoute
+  '/nova/projects': typeof NovaProjectsRoute
+  '/nova/providers': typeof NovaProvidersRoute
+  '/nova/register': typeof NovaRegisterRoute
+  '/nova/roles': typeof NovaRolesRoute
+  '/nova/settings': typeof NovaSettingsRoute
+  '/nova/status': typeof NovaStatusRoute
+  '/nova/wizard': typeof NovaWizardRoute
+  '/reui/analytics': typeof ReuiAnalyticsRoute
+  '/reui/dashboard': typeof ReuiDashboardRoute
+  '/reui/kanban': typeof ReuiKanbanRoute
+  '/reui/login': typeof ReuiLoginRoute
+  '/reui/members': typeof ReuiMembersRoute
+  '/reui/projects': typeof ReuiProjectsRoute
+  '/reui/register': typeof ReuiRegisterRoute
+  '/reui/settings': typeof ReuiSettingsRoute
+  '/nova/': typeof NovaIndexRoute
+  '/reui/': typeof ReuiIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/alerts'
-    | '/analytics'
-    | '/approvals'
-    | '/audit-logs'
-    | '/billing'
-    | '/dashboard'
-    | '/help'
-    | '/keys'
-    | '/login'
-    | '/logs'
-    | '/members'
-    | '/models'
-    | '/notifications'
-    | '/profile'
-    | '/projects'
-    | '/providers'
-    | '/register'
-    | '/roles'
-    | '/settings'
-    | '/status'
-    | '/wizard'
+    | '/reui'
+    | '/nova/alerts'
+    | '/nova/analytics'
+    | '/nova/approvals'
+    | '/nova/audit-logs'
+    | '/nova/billing'
+    | '/nova/dashboard'
+    | '/nova/help'
+    | '/nova/keys'
+    | '/nova/login'
+    | '/nova/logs'
+    | '/nova/members'
+    | '/nova/models'
+    | '/nova/notifications'
+    | '/nova/profile'
+    | '/nova/projects'
+    | '/nova/providers'
+    | '/nova/register'
+    | '/nova/roles'
+    | '/nova/settings'
+    | '/nova/status'
+    | '/nova/wizard'
+    | '/reui/analytics'
+    | '/reui/dashboard'
+    | '/reui/kanban'
+    | '/reui/login'
+    | '/reui/members'
+    | '/reui/projects'
+    | '/reui/register'
+    | '/reui/settings'
+    | '/nova/'
+    | '/reui/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/alerts'
-    | '/analytics'
-    | '/approvals'
-    | '/audit-logs'
-    | '/billing'
-    | '/dashboard'
-    | '/help'
-    | '/keys'
-    | '/login'
-    | '/logs'
-    | '/members'
-    | '/models'
-    | '/notifications'
-    | '/profile'
-    | '/projects'
-    | '/providers'
-    | '/register'
-    | '/roles'
-    | '/settings'
-    | '/status'
-    | '/wizard'
+    | '/nova/alerts'
+    | '/nova/analytics'
+    | '/nova/approvals'
+    | '/nova/audit-logs'
+    | '/nova/billing'
+    | '/nova/dashboard'
+    | '/nova/help'
+    | '/nova/keys'
+    | '/nova/login'
+    | '/nova/logs'
+    | '/nova/members'
+    | '/nova/models'
+    | '/nova/notifications'
+    | '/nova/profile'
+    | '/nova/projects'
+    | '/nova/providers'
+    | '/nova/register'
+    | '/nova/roles'
+    | '/nova/settings'
+    | '/nova/status'
+    | '/nova/wizard'
+    | '/reui/analytics'
+    | '/reui/dashboard'
+    | '/reui/kanban'
+    | '/reui/login'
+    | '/reui/members'
+    | '/reui/projects'
+    | '/reui/register'
+    | '/reui/settings'
+    | '/nova'
+    | '/reui'
   id:
     | '__root__'
     | '/'
-    | '/alerts'
-    | '/analytics'
-    | '/approvals'
-    | '/audit-logs'
-    | '/billing'
-    | '/dashboard'
-    | '/help'
-    | '/keys'
-    | '/login'
-    | '/logs'
-    | '/members'
-    | '/models'
-    | '/notifications'
-    | '/profile'
-    | '/projects'
-    | '/providers'
-    | '/register'
-    | '/roles'
-    | '/settings'
-    | '/status'
-    | '/wizard'
+    | '/reui'
+    | '/nova/alerts'
+    | '/nova/analytics'
+    | '/nova/approvals'
+    | '/nova/audit-logs'
+    | '/nova/billing'
+    | '/nova/dashboard'
+    | '/nova/help'
+    | '/nova/keys'
+    | '/nova/login'
+    | '/nova/logs'
+    | '/nova/members'
+    | '/nova/models'
+    | '/nova/notifications'
+    | '/nova/profile'
+    | '/nova/projects'
+    | '/nova/providers'
+    | '/nova/register'
+    | '/nova/roles'
+    | '/nova/settings'
+    | '/nova/status'
+    | '/nova/wizard'
+    | '/reui/analytics'
+    | '/reui/dashboard'
+    | '/reui/kanban'
+    | '/reui/login'
+    | '/reui/members'
+    | '/reui/projects'
+    | '/reui/register'
+    | '/reui/settings'
+    | '/nova/'
+    | '/reui/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AlertsRoute: typeof AlertsRoute
-  AnalyticsRoute: typeof AnalyticsRoute
-  ApprovalsRoute: typeof ApprovalsRoute
-  AuditLogsRoute: typeof AuditLogsRoute
-  BillingRoute: typeof BillingRoute
-  DashboardRoute: typeof DashboardRoute
-  HelpRoute: typeof HelpRoute
-  KeysRoute: typeof KeysRoute
-  LoginRoute: typeof LoginRoute
-  LogsRoute: typeof LogsRoute
-  MembersRoute: typeof MembersRoute
-  ModelsRoute: typeof ModelsRoute
-  NotificationsRoute: typeof NotificationsRoute
-  ProfileRoute: typeof ProfileRoute
-  ProjectsRoute: typeof ProjectsRoute
-  ProvidersRoute: typeof ProvidersRoute
-  RegisterRoute: typeof RegisterRoute
-  RolesRoute: typeof RolesRoute
-  SettingsRoute: typeof SettingsRoute
-  StatusRoute: typeof StatusRoute
-  WizardRoute: typeof WizardRoute
+  ReuiRoute: typeof ReuiRouteWithChildren
+  NovaAlertsRoute: typeof NovaAlertsRoute
+  NovaAnalyticsRoute: typeof NovaAnalyticsRoute
+  NovaApprovalsRoute: typeof NovaApprovalsRoute
+  NovaAuditLogsRoute: typeof NovaAuditLogsRoute
+  NovaBillingRoute: typeof NovaBillingRoute
+  NovaDashboardRoute: typeof NovaDashboardRoute
+  NovaHelpRoute: typeof NovaHelpRoute
+  NovaKeysRoute: typeof NovaKeysRoute
+  NovaLoginRoute: typeof NovaLoginRoute
+  NovaLogsRoute: typeof NovaLogsRoute
+  NovaMembersRoute: typeof NovaMembersRoute
+  NovaModelsRoute: typeof NovaModelsRoute
+  NovaNotificationsRoute: typeof NovaNotificationsRoute
+  NovaProfileRoute: typeof NovaProfileRoute
+  NovaProjectsRoute: typeof NovaProjectsRoute
+  NovaProvidersRoute: typeof NovaProvidersRoute
+  NovaRegisterRoute: typeof NovaRegisterRoute
+  NovaRolesRoute: typeof NovaRolesRoute
+  NovaSettingsRoute: typeof NovaSettingsRoute
+  NovaStatusRoute: typeof NovaStatusRoute
+  NovaWizardRoute: typeof NovaWizardRoute
+  NovaIndexRoute: typeof NovaIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/wizard': {
-      id: '/wizard'
-      path: '/wizard'
-      fullPath: '/wizard'
-      preLoaderRoute: typeof WizardRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/status': {
-      id: '/status'
-      path: '/status'
-      fullPath: '/status'
-      preLoaderRoute: typeof StatusRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/settings': {
-      id: '/settings'
-      path: '/settings'
-      fullPath: '/settings'
-      preLoaderRoute: typeof SettingsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/roles': {
-      id: '/roles'
-      path: '/roles'
-      fullPath: '/roles'
-      preLoaderRoute: typeof RolesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/register': {
-      id: '/register'
-      path: '/register'
-      fullPath: '/register'
-      preLoaderRoute: typeof RegisterRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/providers': {
-      id: '/providers'
-      path: '/providers'
-      fullPath: '/providers'
-      preLoaderRoute: typeof ProvidersRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/projects': {
-      id: '/projects'
-      path: '/projects'
-      fullPath: '/projects'
-      preLoaderRoute: typeof ProjectsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/profile': {
-      id: '/profile'
-      path: '/profile'
-      fullPath: '/profile'
-      preLoaderRoute: typeof ProfileRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/notifications': {
-      id: '/notifications'
-      path: '/notifications'
-      fullPath: '/notifications'
-      preLoaderRoute: typeof NotificationsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/models': {
-      id: '/models'
-      path: '/models'
-      fullPath: '/models'
-      preLoaderRoute: typeof ModelsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/members': {
-      id: '/members'
-      path: '/members'
-      fullPath: '/members'
-      preLoaderRoute: typeof MembersRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/logs': {
-      id: '/logs'
-      path: '/logs'
-      fullPath: '/logs'
-      preLoaderRoute: typeof LogsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/keys': {
-      id: '/keys'
-      path: '/keys'
-      fullPath: '/keys'
-      preLoaderRoute: typeof KeysRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/help': {
-      id: '/help'
-      path: '/help'
-      fullPath: '/help'
-      preLoaderRoute: typeof HelpRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/dashboard': {
-      id: '/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof DashboardRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/billing': {
-      id: '/billing'
-      path: '/billing'
-      fullPath: '/billing'
-      preLoaderRoute: typeof BillingRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/audit-logs': {
-      id: '/audit-logs'
-      path: '/audit-logs'
-      fullPath: '/audit-logs'
-      preLoaderRoute: typeof AuditLogsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/approvals': {
-      id: '/approvals'
-      path: '/approvals'
-      fullPath: '/approvals'
-      preLoaderRoute: typeof ApprovalsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/analytics': {
-      id: '/analytics'
-      path: '/analytics'
-      fullPath: '/analytics'
-      preLoaderRoute: typeof AnalyticsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/alerts': {
-      id: '/alerts'
-      path: '/alerts'
-      fullPath: '/alerts'
-      preLoaderRoute: typeof AlertsRouteImport
+    '/reui': {
+      id: '/reui'
+      path: '/reui'
+      fullPath: '/reui'
+      preLoaderRoute: typeof ReuiRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -472,32 +464,277 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/reui/': {
+      id: '/reui/'
+      path: '/'
+      fullPath: '/reui/'
+      preLoaderRoute: typeof ReuiIndexRouteImport
+      parentRoute: typeof ReuiRoute
+    }
+    '/nova/': {
+      id: '/nova/'
+      path: '/nova'
+      fullPath: '/nova/'
+      preLoaderRoute: typeof NovaIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reui/settings': {
+      id: '/reui/settings'
+      path: '/settings'
+      fullPath: '/reui/settings'
+      preLoaderRoute: typeof ReuiSettingsRouteImport
+      parentRoute: typeof ReuiRoute
+    }
+    '/reui/register': {
+      id: '/reui/register'
+      path: '/register'
+      fullPath: '/reui/register'
+      preLoaderRoute: typeof ReuiRegisterRouteImport
+      parentRoute: typeof ReuiRoute
+    }
+    '/reui/projects': {
+      id: '/reui/projects'
+      path: '/projects'
+      fullPath: '/reui/projects'
+      preLoaderRoute: typeof ReuiProjectsRouteImport
+      parentRoute: typeof ReuiRoute
+    }
+    '/reui/members': {
+      id: '/reui/members'
+      path: '/members'
+      fullPath: '/reui/members'
+      preLoaderRoute: typeof ReuiMembersRouteImport
+      parentRoute: typeof ReuiRoute
+    }
+    '/reui/login': {
+      id: '/reui/login'
+      path: '/login'
+      fullPath: '/reui/login'
+      preLoaderRoute: typeof ReuiLoginRouteImport
+      parentRoute: typeof ReuiRoute
+    }
+    '/reui/kanban': {
+      id: '/reui/kanban'
+      path: '/kanban'
+      fullPath: '/reui/kanban'
+      preLoaderRoute: typeof ReuiKanbanRouteImport
+      parentRoute: typeof ReuiRoute
+    }
+    '/reui/dashboard': {
+      id: '/reui/dashboard'
+      path: '/dashboard'
+      fullPath: '/reui/dashboard'
+      preLoaderRoute: typeof ReuiDashboardRouteImport
+      parentRoute: typeof ReuiRoute
+    }
+    '/reui/analytics': {
+      id: '/reui/analytics'
+      path: '/analytics'
+      fullPath: '/reui/analytics'
+      preLoaderRoute: typeof ReuiAnalyticsRouteImport
+      parentRoute: typeof ReuiRoute
+    }
+    '/nova/wizard': {
+      id: '/nova/wizard'
+      path: '/nova/wizard'
+      fullPath: '/nova/wizard'
+      preLoaderRoute: typeof NovaWizardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nova/status': {
+      id: '/nova/status'
+      path: '/nova/status'
+      fullPath: '/nova/status'
+      preLoaderRoute: typeof NovaStatusRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nova/settings': {
+      id: '/nova/settings'
+      path: '/nova/settings'
+      fullPath: '/nova/settings'
+      preLoaderRoute: typeof NovaSettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nova/roles': {
+      id: '/nova/roles'
+      path: '/nova/roles'
+      fullPath: '/nova/roles'
+      preLoaderRoute: typeof NovaRolesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nova/register': {
+      id: '/nova/register'
+      path: '/nova/register'
+      fullPath: '/nova/register'
+      preLoaderRoute: typeof NovaRegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nova/providers': {
+      id: '/nova/providers'
+      path: '/nova/providers'
+      fullPath: '/nova/providers'
+      preLoaderRoute: typeof NovaProvidersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nova/projects': {
+      id: '/nova/projects'
+      path: '/nova/projects'
+      fullPath: '/nova/projects'
+      preLoaderRoute: typeof NovaProjectsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nova/profile': {
+      id: '/nova/profile'
+      path: '/nova/profile'
+      fullPath: '/nova/profile'
+      preLoaderRoute: typeof NovaProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nova/notifications': {
+      id: '/nova/notifications'
+      path: '/nova/notifications'
+      fullPath: '/nova/notifications'
+      preLoaderRoute: typeof NovaNotificationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nova/models': {
+      id: '/nova/models'
+      path: '/nova/models'
+      fullPath: '/nova/models'
+      preLoaderRoute: typeof NovaModelsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nova/members': {
+      id: '/nova/members'
+      path: '/nova/members'
+      fullPath: '/nova/members'
+      preLoaderRoute: typeof NovaMembersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nova/logs': {
+      id: '/nova/logs'
+      path: '/nova/logs'
+      fullPath: '/nova/logs'
+      preLoaderRoute: typeof NovaLogsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nova/login': {
+      id: '/nova/login'
+      path: '/nova/login'
+      fullPath: '/nova/login'
+      preLoaderRoute: typeof NovaLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nova/keys': {
+      id: '/nova/keys'
+      path: '/nova/keys'
+      fullPath: '/nova/keys'
+      preLoaderRoute: typeof NovaKeysRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nova/help': {
+      id: '/nova/help'
+      path: '/nova/help'
+      fullPath: '/nova/help'
+      preLoaderRoute: typeof NovaHelpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nova/dashboard': {
+      id: '/nova/dashboard'
+      path: '/nova/dashboard'
+      fullPath: '/nova/dashboard'
+      preLoaderRoute: typeof NovaDashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nova/billing': {
+      id: '/nova/billing'
+      path: '/nova/billing'
+      fullPath: '/nova/billing'
+      preLoaderRoute: typeof NovaBillingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nova/audit-logs': {
+      id: '/nova/audit-logs'
+      path: '/nova/audit-logs'
+      fullPath: '/nova/audit-logs'
+      preLoaderRoute: typeof NovaAuditLogsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nova/approvals': {
+      id: '/nova/approvals'
+      path: '/nova/approvals'
+      fullPath: '/nova/approvals'
+      preLoaderRoute: typeof NovaApprovalsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nova/analytics': {
+      id: '/nova/analytics'
+      path: '/nova/analytics'
+      fullPath: '/nova/analytics'
+      preLoaderRoute: typeof NovaAnalyticsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nova/alerts': {
+      id: '/nova/alerts'
+      path: '/nova/alerts'
+      fullPath: '/nova/alerts'
+      preLoaderRoute: typeof NovaAlertsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
+interface ReuiRouteChildren {
+  ReuiAnalyticsRoute: typeof ReuiAnalyticsRoute
+  ReuiDashboardRoute: typeof ReuiDashboardRoute
+  ReuiKanbanRoute: typeof ReuiKanbanRoute
+  ReuiLoginRoute: typeof ReuiLoginRoute
+  ReuiMembersRoute: typeof ReuiMembersRoute
+  ReuiProjectsRoute: typeof ReuiProjectsRoute
+  ReuiRegisterRoute: typeof ReuiRegisterRoute
+  ReuiSettingsRoute: typeof ReuiSettingsRoute
+  ReuiIndexRoute: typeof ReuiIndexRoute
+}
+
+const ReuiRouteChildren: ReuiRouteChildren = {
+  ReuiAnalyticsRoute: ReuiAnalyticsRoute,
+  ReuiDashboardRoute: ReuiDashboardRoute,
+  ReuiKanbanRoute: ReuiKanbanRoute,
+  ReuiLoginRoute: ReuiLoginRoute,
+  ReuiMembersRoute: ReuiMembersRoute,
+  ReuiProjectsRoute: ReuiProjectsRoute,
+  ReuiRegisterRoute: ReuiRegisterRoute,
+  ReuiSettingsRoute: ReuiSettingsRoute,
+  ReuiIndexRoute: ReuiIndexRoute,
+}
+
+const ReuiRouteWithChildren = ReuiRoute._addFileChildren(ReuiRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AlertsRoute: AlertsRoute,
-  AnalyticsRoute: AnalyticsRoute,
-  ApprovalsRoute: ApprovalsRoute,
-  AuditLogsRoute: AuditLogsRoute,
-  BillingRoute: BillingRoute,
-  DashboardRoute: DashboardRoute,
-  HelpRoute: HelpRoute,
-  KeysRoute: KeysRoute,
-  LoginRoute: LoginRoute,
-  LogsRoute: LogsRoute,
-  MembersRoute: MembersRoute,
-  ModelsRoute: ModelsRoute,
-  NotificationsRoute: NotificationsRoute,
-  ProfileRoute: ProfileRoute,
-  ProjectsRoute: ProjectsRoute,
-  ProvidersRoute: ProvidersRoute,
-  RegisterRoute: RegisterRoute,
-  RolesRoute: RolesRoute,
-  SettingsRoute: SettingsRoute,
-  StatusRoute: StatusRoute,
-  WizardRoute: WizardRoute,
+  ReuiRoute: ReuiRouteWithChildren,
+  NovaAlertsRoute: NovaAlertsRoute,
+  NovaAnalyticsRoute: NovaAnalyticsRoute,
+  NovaApprovalsRoute: NovaApprovalsRoute,
+  NovaAuditLogsRoute: NovaAuditLogsRoute,
+  NovaBillingRoute: NovaBillingRoute,
+  NovaDashboardRoute: NovaDashboardRoute,
+  NovaHelpRoute: NovaHelpRoute,
+  NovaKeysRoute: NovaKeysRoute,
+  NovaLoginRoute: NovaLoginRoute,
+  NovaLogsRoute: NovaLogsRoute,
+  NovaMembersRoute: NovaMembersRoute,
+  NovaModelsRoute: NovaModelsRoute,
+  NovaNotificationsRoute: NovaNotificationsRoute,
+  NovaProfileRoute: NovaProfileRoute,
+  NovaProjectsRoute: NovaProjectsRoute,
+  NovaProvidersRoute: NovaProvidersRoute,
+  NovaRegisterRoute: NovaRegisterRoute,
+  NovaRolesRoute: NovaRolesRoute,
+  NovaSettingsRoute: NovaSettingsRoute,
+  NovaStatusRoute: NovaStatusRoute,
+  NovaWizardRoute: NovaWizardRoute,
+  NovaIndexRoute: NovaIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -13,7 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 
-export const Route = createFileRoute("/login")({
+export const Route = createFileRoute("/nova/login")({
 	component: LoginPage,
 });
 
@@ -45,7 +45,7 @@ function LoginPage() {
 		await new Promise((resolve) => setTimeout(resolve, 800));
 		localStorage.setItem("nova:user", JSON.stringify({ name: "陈晓", email: values.email }));
 		toast.success("登录成功", { description: "正在进入控制台…" });
-		void navigate({ to: "/dashboard" });
+		void navigate({ to: "/nova/dashboard" });
 	}
 
 	function fillDemoAccount() {
@@ -174,7 +174,7 @@ function LoginPage() {
 
 			<p className="text-muted-foreground mt-6 text-center text-xs">
 				还没有账号？{" "}
-				<Link to="/register" className="text-foreground font-medium underline-offset-4 hover:underline">
+				<Link to="/nova/register" className="text-foreground font-medium underline-offset-4 hover:underline">
 					免费注册
 				</Link>
 			</p>
