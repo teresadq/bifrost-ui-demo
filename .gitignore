@@ -4,3 +4,6 @@ dist
 .DS_Store
 *.tsbuildinfo
 .tanstack
+
+# Go build artifact from htmx/
+htmx/nova-htmx-demo

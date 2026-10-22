@@ -1,0 +1,68 @@
+{{define "content"}}
+<div class="page-head">
+  <div>
+    <h1>团队成员</h1>
+    <p>{{.Subtitle}}</p>
+  </div>
+  <div class="page-actions">
+    <button class="btn btn-primary" type="button" x-data @click="$dispatch('open-member-modal')">{{icon "plus"}}邀请成员</button>
+  </div>
+</div>
+
+<form id="member-filters" class="card toolbar"
+  hx-get="/htmx/members/table" hx-target="#members-panel" hx-swap="innerHTML"
+  hx-trigger="submit, input changed delay:350ms">
+  <label class="search-box">
+    {{icon "search"}}
+    <input name="q" value="{{.Q}}" placeholder="搜索姓名、邮箱或角色…" autocomplete="off">
+    <span class="htmx-indicator spinner" aria-hidden="true"></span>
+  </label>
+  <span class="toolbar-note">{{icon "shield"}}角色与 2FA 状态由服务端保存</span>
+  <a class="btn btn-ghost" href="/htmx/members">{{icon "x"}}重置</a>
+</form>
+
+<div id="members-panel" class="card table-card">
+  {{template "members_panel" .}}
+</div>
+
+<div class="modal-root" x-data="{open:false}" @open-member-modal.window="open=true; $refs.memberForm.reset(); $refs.memberForm.querySelector('.form-error').textContent=''" @close-member-modal.window="open=false; $refs.memberForm.reset(); $refs.memberForm.querySelector('.form-error').textContent=''" @keydown.escape.window="open=false">
+  <div class="modal-backdrop" x-show="open" x-cloak @click="open=false"></div>
+  <div class="modal" x-show="open" x-cloak role="dialog" aria-modal="true" aria-labelledby="member-modal-title">
+    <div class="modal-head">
+      <div>
+        <h2 id="member-modal-title">邀请成员</h2>
+        <p class="modal-sub">邀请会发送到对方邮箱，演示环境不会真实发送。</p>
+      </div>
+      <button class="icon-btn icon-btn-sm" type="button" @click="open=false" aria-label="关闭">{{icon "x"}}</button>
+    </div>
+    <form x-ref="memberForm" hx-post="/htmx/members" hx-target="#members-panel" hx-swap="innerHTML" hx-disabled-elt="find button[type=submit]">
+      <div class="modal-body">
+        <div class="form-grid">
+          <label class="field">
+            <span class="label">姓名</span>
+            <input class="input" name="name" placeholder="例如：孙悦" autocomplete="off">
+          </label>
+          <label class="field">
+            <span class="label">邮箱</span>
+            <input class="input" name="email" type="email" placeholder="name@nova.dev" autocomplete="off">
+          </label>
+        </div>
+        <label class="field">
+          <span class="label">角色</span>
+          <select class="select" name="role">
+            <option value="viewer">只读</option>
+            <option value="developer">开发者</option>
+            <option value="admin">管理员</option>
+          </select>
+        </label>
+        <div id="member-form-error" class="form-error" role="alert"></div>
+        <p class="hint">提交成功后返回成员表格片段，并通过 <code>HX-Trigger</code> 关闭弹窗。</p>
+      </div>
+      <div class="modal-foot">
+        <button class="btn btn-ghost" type="button" @click="open=false">取消</button>
+        <button class="btn btn-primary" type="submit">{{icon "mail"}}发送邀请</button>
+      </div>
+    </form>
+  </div>
+</div>
+{{end}}

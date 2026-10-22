@@ -8,6 +8,7 @@ import {
 	Layers,
 	LayoutDashboard,
 	PanelsTopLeft,
+	Server,
 	Sparkles,
 	SquareKanban,
 	SwatchBook,
@@ -166,6 +167,98 @@ function ReuiPreview() {
 	);
 }
 
+function HtmxPreview() {
+	return (
+		<div className="relative h-[210px] overflow-hidden rounded-lg border border-zinc-200 bg-[#f4f4f5] text-zinc-900">
+			<div className="flex h-full">
+				<div className="w-[54px] shrink-0 border-r border-zinc-200 bg-[#fafafa] p-2">
+					<div className="flex items-center gap-1">
+						<span className="size-3 rounded-sm bg-[oklch(0.5081_0.1049_165.61)]" />
+						<span className="h-1 w-5 rounded bg-zinc-300" />
+					</div>
+					<div className="mt-3 space-y-1.5">
+						<div className="flex h-4 items-center gap-1 rounded-sm bg-white px-1.5 shadow-[0_0_0_1px_rgb(0_0_0/0.06)]">
+							<div className="size-1 rounded-sm bg-[oklch(0.5081_0.1049_165.61)]" />
+							<div className="h-1 w-5 rounded bg-zinc-400" />
+						</div>
+						<div className="flex h-4 items-center gap-1 px-1.5">
+							<div className="size-1 rounded-sm bg-zinc-400" />
+							<div className="h-1 w-6 rounded bg-zinc-300" />
+						</div>
+						<div className="flex h-4 items-center gap-1 px-1.5">
+							<div className="size-1 rounded-sm bg-zinc-400" />
+							<div className="h-1 w-5 rounded bg-zinc-200" />
+						</div>
+						<div className="flex h-4 items-center gap-1 px-1.5">
+							<div className="size-1 rounded-sm bg-zinc-400" />
+							<div className="h-1 w-7 rounded bg-zinc-200" />
+						</div>
+					</div>
+				</div>
+				<div className="min-w-0 flex-1 p-2.5">
+					<div className="flex items-center justify-between">
+						<div>
+							<div className="h-1.5 w-10 rounded bg-zinc-500" />
+							<div className="mt-1 h-1 w-16 rounded bg-zinc-300" />
+						</div>
+						<div className="flex items-center gap-1">
+							<span className="rounded-sm border border-[oklch(0.5081_0.1049_165.61)]/30 bg-[oklch(0.5081_0.1049_165.61)]/10 px-1 py-0.5 font-mono text-[6px] text-[oklch(0.42_0.1049_165.61)]">
+								hx-get
+							</span>
+							<span className="rounded-sm bg-zinc-200/80 px-1 py-0.5 font-mono text-[6px] text-zinc-500">Go · SSR</span>
+							<div className="h-4 w-9 rounded-sm bg-[oklch(0.5081_0.1049_165.61)]" />
+						</div>
+					</div>
+					<div className="mt-2 grid grid-cols-3 gap-1.5">
+						{[
+							{ label: "bg-zinc-300", value: "1.28M", spark: "0,16 8,13 16,14 24,9 32,10 40,6" },
+							{ label: "bg-zinc-300", value: "214ms", spark: "0,6 8,8 16,7 24,10 32,11 40,13" },
+							{ label: "bg-zinc-300", value: "99.94%", spark: "0,14 8,13 16,13 24,11 32,10 40,8" },
+						].map((stat, index) => (
+							<div key={index} className="rounded-sm border border-zinc-200 bg-white p-1.5">
+								<div className="flex items-center justify-between">
+									<div className="h-1 w-5 rounded bg-zinc-300" />
+									<div className="size-1 rounded-full bg-[oklch(0.5081_0.1049_165.61)]" />
+								</div>
+								<div className="mt-1 font-mono text-[7px] font-semibold text-zinc-700">{stat.value}</div>
+								<svg viewBox="0 0 40 18" className="mt-1 h-3 w-full" preserveAspectRatio="none">
+									<polyline points={stat.spark} fill="none" stroke="#0f766e" strokeWidth="1" />
+								</svg>
+							</div>
+						))}
+					</div>
+					<div className="mt-1.5 rounded-sm border border-zinc-200 bg-white">
+						<div className="flex items-center gap-2 border-b border-zinc-100 px-1.5 py-1">
+							<div className="h-1 w-6 rounded bg-zinc-400" />
+							<div className="ml-auto h-1 w-4 rounded bg-zinc-200" />
+							<div className="h-1 w-4 rounded bg-zinc-200" />
+						</div>
+						{[
+							["req_a4f2c1", "gpt-4o", "99.9%"],
+							["req_a4f2ac", "claude-sonnet-4-5", "99.8%"],
+							["req_a4f297", "deepseek-v3", "97.2%"],
+							["req_a4f282", "gemini-2.5-pro", "99.4%"],
+						].map(([id, model, rate], index) => (
+							<div key={id} className="flex items-center gap-1.5 px-1.5 py-[3px]">
+								<div className="h-1 w-3 rounded-sm bg-zinc-300" />
+								<span className="font-mono text-[5.5px] text-zinc-500">{id}</span>
+								<span className="truncate font-mono text-[5.5px] text-zinc-400">{model}</span>
+								<span className="ml-auto font-mono text-[5.5px] text-zinc-500">{rate}</span>
+								<span
+									className={cn(
+										"size-1 rounded-full",
+										index === 2 ? "bg-amber-400" : "bg-emerald-500",
+									)}
+								/>
+							</div>
+						))}
+					</div>
+				</div>
+			</div>
+		</div>
+	);
+}
+
 function StyleCard({
 	variant,
 	title,
@@ -176,15 +269,27 @@ function StyleCard({
 	secondary,
 	accent,
 }: {
-	variant: "bifrost" | "reui";
+	variant: "bifrost" | "reui" | "htmx";
 	title: string;
 	subtitle: string;
 	description: string;
 	preview: ReactNode;
-	primary: { to: string; label: string };
-	secondary: { to: string; label: string };
+	primary: { to: string; label: string; external?: boolean };
+	secondary: { to: string; label: string; external?: boolean };
 	accent: string;
 }) {
+	const tags = {
+		bifrost: ["Geist", "墨绿主色", "紧凑密度", "灰底卡片"],
+		reui: ["Inter", "近黑主色", "大圆角", "看板组件"],
+		htmx: ["Go + HTMX", "服务端 HTML", "零前端状态", "OOB 局部更新"],
+	}[variant];
+
+	const primaryClass = {
+		bifrost: "bg-[oklch(0.5081_0.1049_165.61)] text-white hover:bg-[oklch(0.46_0.1049_165.61)]",
+		reui: "bg-zinc-900 text-white hover:bg-zinc-800 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200",
+		htmx: "bg-[oklch(0.44_0.1049_165.61)] text-white hover:bg-[oklch(0.39_0.1049_165.61)]",
+	}[variant];
+
 	return (
 		<div className="group bg-card relative flex flex-col rounded-2xl border p-3 shadow-[0_1px_2px_rgb(0_0_0/0.04)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_50px_-20px_rgb(0_0_0/0.25)]">
 			<div className="overflow-hidden rounded-xl">{preview}</div>
@@ -200,10 +305,7 @@ function StyleCard({
 				<p className="text-muted-foreground mt-1 text-xs leading-5">{description}</p>
 
 				<div className="mt-3 flex flex-wrap gap-1.5">
-					{(variant === "bifrost"
-						? ["Geist", "墨绿主色", "紧凑密度", "灰底卡片"]
-						: ["Inter", "近黑主色", "大圆角", "看板组件"]
-					).map((tag) => (
+					{tags.map((tag) => (
 						<span key={tag} className="bg-secondary text-muted-foreground rounded-md px-1.5 py-0.5 text-[10px]">
 							{tag}
 						</span>
@@ -211,23 +313,31 @@ function StyleCard({
 				</div>
 
 				<div className="mt-auto flex items-center gap-2 pt-5">
-					<Button
-						asChild
-						className={cn(
-							"h-9 flex-1 gap-1.5 rounded-lg text-xs",
-							variant === "bifrost" ? "bg-[oklch(0.5081_0.1049_165.61)] text-white hover:bg-[oklch(0.46_0.1049_165.61)]" : "bg-zinc-900 text-white hover:bg-zinc-800 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200",
+					<Button asChild className={cn("h-9 flex-1 gap-1.5 rounded-lg text-xs", primaryClass)}>
+						{primary.external ? (
+							<a href={primary.to}>
+								{primary.label}
+								<ArrowRight className="size-3.5" />
+							</a>
+						) : (
+							<Link to={primary.to}>
+								{primary.label}
+								<ArrowRight className="size-3.5" />
+							</Link>
 						)}
-					>
-						<Link to={primary.to}>
-							{primary.label}
-							<ArrowRight className="size-3.5" />
-						</Link>
 					</Button>
 					<Button asChild variant="outline" className="h-9 gap-1 rounded-lg px-3 text-xs">
-						<Link to={secondary.to}>
-							{secondary.label}
-							<ArrowUpRight className="size-3" />
-						</Link>
+						{secondary.external ? (
+							<a href={secondary.to}>
+								{secondary.label}
+								<ArrowUpRight className="size-3" />
+							</a>
+						) : (
+							<Link to={secondary.to}>
+								{secondary.label}
+								<ArrowUpRight className="size-3" />
+							</Link>
+						)}
 					</Button>
 				</div>
 			</div>
@@ -255,7 +365,7 @@ function StyleChooserPage() {
 					<div className="flex items-center gap-2">
 						<span className="text-muted-foreground hidden items-center gap-1.5 rounded-lg border px-2 py-1 text-[10px] sm:flex">
 							<Command className="size-3" />
-							同一套数据 · 两种风格
+							同一套数据 · 三种风格
 						</span>
 						<ThemeToggle />
 					</div>
@@ -265,19 +375,19 @@ function StyleChooserPage() {
 					<div className="mx-auto max-w-2xl text-center">
 						<div className="border-border bg-card text-muted-foreground mx-auto flex w-fit items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px]">
 							<SwatchBook className="size-3" />
-							React 19 · Tailwind v4 · Radix UI · TanStack Router
+							React 19 · Tailwind v4 · TanStack Router · Go + HTMX
 						</div>
 						<h1 className="mt-5 text-[2rem] leading-[1.1] font-semibold tracking-tight text-balance sm:text-[2.75rem]">
-							两种设计语言,
+							三种设计语言,
 							<br />
 							同一套 Nova 控制台
 						</h1>
 						<p className="text-muted-foreground mx-auto mt-4 max-w-lg text-sm leading-6">
-							选择一个风格进入演示。两套界面共享相同的 mock 数据与业务功能，但使用完全不同的设计令牌、组件密度与布局语言。
+							选择一个风格进入演示。三套界面共享相同的 mock 数据与业务功能，但使用完全不同的设计令牌、组件密度与布局语言。第三套按 Go + HTMX 的方法实现，页面与状态都由服务端负责。
 						</p>
 					</div>
 
-					<div className="mt-9 grid gap-4 md:grid-cols-2">
+					<div className="mt-9 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
 						<StyleCard
 							variant="bifrost"
 							title="Bifrost UI"
@@ -298,13 +408,24 @@ function StyleChooserPage() {
 							secondary={{ to: "/reui/kanban", label: "拖拽看板" }}
 							accent="bg-zinc-900"
 						/>
+						<StyleCard
+							variant="htmx"
+							title="Go + HTMX"
+							subtitle="服务端渲染、零前端状态"
+							description="按 HTMX 的方法实现同一套 Bifrost 控制台：路由、筛选与写入都留在 Go 服务端，浏览器只交换 HTML 片段。搜索防抖、懒加载、OOB 更新与 HX-Redirect 都是真实请求。"
+							preview={<HtmxPreview />}
+							primary={{ to: "/htmx/dashboard", label: "进入 HTMX 控制台", external: true }}
+							secondary={{ to: "/htmx/projects", label: "新建项目", external: true }}
+							accent="bg-[oklch(0.44_0.1049_165.61)]"
+						/>
 					</div>
 
-					<div className="mx-auto mt-8 grid w-full max-w-3xl gap-3 sm:grid-cols-3">
+					<div className="mx-auto mt-8 grid w-full max-w-4xl gap-3 sm:grid-cols-2 lg:grid-cols-4">
 						{[
 							{ icon: Layers, title: "同一套功能", desc: "概览、项目、成员、设置等页面一一对应" },
-							{ icon: GitBranch, title: "独立路由", desc: "/nova/* 与 /reui/* 互不干扰，随时切换" },
+							{ icon: GitBranch, title: "独立路由", desc: "/nova/*、/reui/* 与 /htmx/* 互不干扰" },
 							{ icon: SquareKanban, title: "真实组件", desc: "ReUI 看板基于 dnd-kit，可拖拽卡片与列" },
+							{ icon: Server, title: "真实请求", desc: "HTMX 版由 Go 渲染片段，状态留在服务端" },
 						].map((item) => {
 							const Icon = item.icon;
 							return (
@@ -323,7 +444,7 @@ function StyleChooserPage() {
 				<footer className="text-muted-foreground flex flex-wrap items-center justify-between gap-2 border-t py-4 text-[10px]">
 					<span className="inline-flex items-center gap-1.5">
 						<Check className="size-3 text-emerald-500" />
-						所有数据均为本地虚构数据，不会发送网络请求
+						所有数据均为本地虚构数据，仅在本机内存中读写
 					</span>
 					<span className="inline-flex items-center gap-1.5">
 						<LayoutDashboard className="size-3" />

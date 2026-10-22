@@ -1,0 +1,62 @@
+{{define "content"}}
+<div class="page-head">
+  <div>
+    <h1>API 密钥</h1>
+    <p>{{.Subtitle}}</p>
+  </div>
+  <div class="page-actions">
+    <button class="btn btn-primary" type="button" x-data @click="$dispatch('open-key-modal')">{{icon "plus"}}新建密钥</button>
+  </div>
+</div>
+
+<div class="notice">
+  {{icon "alert-triangle"}}
+  <div>
+    <p class="notice-title">密钥只在创建时完整展示一次</p>
+    <p class="notice-desc">离开页面后仅保留前缀。请把密钥存入密钥管理系统，不要提交到代码仓库。</p>
+  </div>
+</div>
+
+<div id="key-secret"></div>
+
+{{template "keys_panel" .}}
+
+<div class="modal-root" x-data="{open:false}" @open-key-modal.window="open=true; $refs.keyForm.reset(); $refs.keyForm.querySelector('.form-error').textContent=''" @close-key-modal.window="open=false; $refs.keyForm.reset(); $refs.keyForm.querySelector('.form-error').textContent=''" @keydown.escape.window="open=false">
+  <div class="modal-backdrop" x-show="open" x-cloak @click="open=false"></div>
+  <div class="modal" x-show="open" x-cloak role="dialog" aria-modal="true" aria-labelledby="key-modal-title">
+    <div class="modal-head">
+      <div>
+        <h2 id="key-modal-title">新建 API 密钥</h2>
+        <p class="modal-sub">按最小权限勾选该密钥需要的范围。</p>
+      </div>
+      <button class="icon-btn icon-btn-sm" type="button" @click="open=false" aria-label="关闭">{{icon "x"}}</button>
+    </div>
+    <form x-ref="keyForm" hx-post="/htmx/keys" hx-target="#key-secret" hx-swap="innerHTML" hx-disabled-elt="find button[type=submit]">
+      <div class="modal-body">
+        <label class="field">
+          <span class="label">密钥名称</span>
+          <input class="input" name="name" placeholder="例如：prod-worker" autocomplete="off">
+        </label>
+        <fieldset class="field">
+          <legend class="label">权限范围</legend>
+          <div class="check-grid">
+            <label class="check-row"><input type="checkbox" name="scopes" value="chat" checked><span>chat · 对话与补全</span></label>
+            <label class="check-row"><input type="checkbox" name="scopes" value="embeddings"><span>embeddings · 向量化</span></label>
+            <label class="check-row"><input type="checkbox" name="scopes" value="read"><span>read · 只读用量</span></label>
+            <label class="check-row"><input type="checkbox" name="scopes" value="admin"><span>admin · 管理配置</span></label>
+          </div>
+        </fieldset>
+        <div id="key-form-error" class="form-error" role="alert"></div>
+        <p class="hint">
+          服务端生成密钥后返回一段 <code>.secret-banner</code> 定向插入上方
+          <code>#key-secret</code>，同时用 OOB 把新行插入 <code>#key-rows</code>。
+        </p>
+      </div>
+      <div class="modal-foot">
+        <button class="btn btn-ghost" type="button" @click="open=false">取消</button>
+        <button class="btn btn-primary" type="submit">{{icon "key"}}生成密钥</button>
+      </div>
+    </form>
+  </div>
+</div>
+{{end}}

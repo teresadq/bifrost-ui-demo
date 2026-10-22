@@ -4,8 +4,11 @@
 	"private": true,
 	"type": "module",
 	"scripts": {
-		"dev": "vite",
+		"dev": "node scripts/dev.mjs",
+		"dev:web": "vite",
+		"dev:htmx": "cd htmx && go run .",
 		"build": "vite build && npm run typecheck",
+		"build:htmx": "cd htmx && mkdir -p ../dist && go build -o ../dist/htmx-server .",
 		"typecheck": "tsc --noEmit",
 		"preview": "vite preview"
 	},

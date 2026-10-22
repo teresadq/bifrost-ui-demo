@@ -1,0 +1,59 @@
+{{define "content"}}
+<div class="page-head">
+  <div>
+    <h1>请求日志</h1>
+    <p>{{.Subtitle}}</p>
+  </div>
+  <div class="page-actions">
+    <a class="btn btn-outline" href="/htmx/logs">{{icon "refresh"}}刷新</a>
+    <span class="btn btn-outline is-disabled" title="演示环境不导出">{{icon "download"}}导出</span>
+  </div>
+</div>
+
+<form id="log-filters" class="card toolbar"
+  hx-get="/htmx/logs/table" hx-target="#log-panel" hx-swap="innerHTML"
+  hx-trigger="submit, change, input changed delay:300ms">
+  <label class="search-box">
+    {{icon "search"}}
+    <input name="q" value="{{.Q}}" placeholder="搜索请求 ID、模型、项目…" autocomplete="off">
+    <span class="htmx-indicator spinner" aria-hidden="true"></span>
+  </label>
+
+  <select class="select" name="provider" aria-label="提供商">
+    <option value="all" {{selected .Provider "all"}}>全部提供商</option>
+    <option value="OpenAI" {{selected .Provider "OpenAI"}}>OpenAI</option>
+    <option value="Anthropic" {{selected .Provider "Anthropic"}}>Anthropic</option>
+    <option value="DeepSeek" {{selected .Provider "DeepSeek"}}>DeepSeek</option>
+    <option value="Google" {{selected .Provider "Google"}}>Google</option>
+    <option value="Alibaba" {{selected .Provider "Alibaba"}}>Alibaba</option>
+    <option value="Meta" {{selected .Provider "Meta"}}>Meta</option>
+  </select>
+
+  <select class="select" name="status" aria-label="状态">
+    <option value="all" {{selected .Status "all"}}>全部状态</option>
+    <option value="success" {{selected .Status "success"}}>成功</option>
+    <option value="retry" {{selected .Status "retry"}}>重试</option>
+    <option value="error" {{selected .Status "error"}}>失败</option>
+  </select>
+
+  <select class="select" name="type" aria-label="请求类型">
+    <option value="all" {{selected .Type "all"}}>全部类型</option>
+    <option value="chat" {{selected .Type "chat"}}>对话</option>
+    <option value="completion" {{selected .Type "completion"}}>补全</option>
+    <option value="embedding" {{selected .Type "embedding"}}>向量</option>
+    <option value="image" {{selected .Type "image"}}>图像</option>
+  </select>
+
+  <a class="btn btn-ghost" href="/htmx/logs">{{icon "x"}}重置</a>
+</form>
+
+<div id="log-panel" class="card table-card">
+  {{template "logs_panel" .}}
+</div>
+
+<p class="footnote">
+  搜索输入通过 <code>hx-trigger="input changed delay:350ms"</code> 防抖，服务端过滤后返回
+  <code>&lt;div id="log-panel"&gt;</code> 的内部 HTML；地址栏由响应头 <code>HX-Push-Url</code> 同步，可复制分享。
+  点击行尾箭头，服务端返回 <code>&lt;tr&gt;</code> 片段并插入当前行之后。
+</p>
+{{end}}

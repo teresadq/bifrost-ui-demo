@@ -1,0 +1,206 @@
+{{define "member_row"}}
+<tr id="member-{{.ID}}">
+  <td>
+    <div class="person">
+      <span class="avatar avatar-sm">{{.Initials}}</span>
+      <div class="person-text">
+        <span class="cell-strong">{{.Name}}</span>
+        <span class="cell-sub">{{.Email}}</span>
+      </div>
+    </div>
+  </td>
+  <td>
+    <select class="select select-xs" name="role" aria-label="角色"
+      hx-post="/htmx/members/{{.ID}}/role" hx-trigger="change" hx-target="closest tr" hx-swap="outerHTML">
+      <option value="owner" {{selected .Role "owner"}}>所有者</option>
+      <option value="admin" {{selected .Role "admin"}}>管理员</option>
+      <option value="developer" {{selected .Role "developer"}}>开发者</option>
+      <option value="viewer" {{selected .Role "viewer"}}>只读</option>
+    </select>
+  </td>
+  <td>
+    {{if .TwoFA}}
+      <span class="pill pill-success"><span class="dot"></span>已启用</span>
+    {{else}}
+      <span class="pill pill-neutral"><span class="dot"></span>未启用</span>
+    {{end}}
+  </td>
+  <td class="muted">{{.LastActive}}</td>
+</tr>
+{{end}}
+
+{{define "key_row"}}
+<tr id="key-{{.ID}}" class="{{if .Revoked}}row-revoked{{end}}">
+  <td>
+    <span class="cell-strong">{{.Name}}</span>
+    <span class="cell-sub mono">{{.Prefix}}</span>
+  </td>
+  <td>
+    <div class="scopes">
+      {{range .Scopes}}<span class="scope">{{.}}</span>{{end}}
+    </div>
+  </td>
+  <td class="muted mono">{{.Created}}</td>
+  <td class="muted">{{.LastUsed}}</td>
+  <td>
+    {{if .Revoked}}
+      <span class="pill pill-neutral"><span class="dot"></span>已吊销</span>
+    {{else}}
+      <span class="pill pill-success"><span class="dot"></span>有效</span>
+    {{end}}
+  </td>
+  <td class="td-right">
+    {{if not .Revoked}}
+    <div class="popconfirm-wrap" x-data="{ask:false}" @click.outside="ask=false">
+      <button class="btn btn-ghost btn-xs danger-text" type="button" @click="ask=!ask">吊销</button>
+      <div class="popconfirm" x-show="ask" x-cloak>
+        <p class="popconfirm-title">确定吊销「{{.Name}}」？</p>
+        <p class="popconfirm-desc">调用方将立即失去访问权限，此操作不可撤销。</p>
+        <div class="popconfirm-actions">
+          <button class="btn btn-danger btn-xs" type="button"
+            hx-delete="/htmx/keys/{{.ID}}" hx-target="closest tr" hx-swap="outerHTML">确认吊销</button>
+          <button class="btn btn-ghost btn-xs" type="button" @click="ask=false">取消</button>
+        </div>
+      </div>
+    </div>
+    {{end}}
+  </td>
+</tr>
+{{end}}
+
+{{define "project_row"}}
+<tr>
+  <td>
+    <div class="cell-main">
+      <span class="cell-icon">{{icon "folder"}}</span>
+      <div class="person-text">
+        <span class="cell-strong">{{.Name}}</span>
+        <span class="cell-sub mono">{{.Key}}</span>
+      </div>
+    </div>
+  </td>
+  <td>{{.Owner}}</td>
+  <td>
+    <span class="pill {{statusClass .Status}}"><span class="dot"></span>
+      {{if eq .Status "active"}}运行中{{else if eq .Status "paused"}}已暂停{{else}}已归档{{end}}
+    </span>
+  </td>
+  <td class="num">{{num .Requests}}</td>
+  <td>
+    <div class="budget">
+      <div class="bar"><span class="{{if gt (pct .Used .Budget) 85}}bar-hot{{end}}" style="width:{{pct .Used .Budget}}%"></span></div>
+      <span class="cell-sub mono">{{money .Used}} / {{money .Budget}}</span>
+    </div>
+  </td>
+  <td class="muted mono">{{.Updated}}</td>
+  <td class="td-right">
+    <div class="inline-actions">
+      {{if eq .Status "active"}}
+        <button class="btn btn-ghost btn-xs" type="button" hx-post="/htmx/projects/{{.ID}}/status"
+          hx-vals='{"status":"paused"}' hx-target="#project-panel" hx-swap="outerHTML">{{icon "pause"}}暂停</button>
+        <button class="btn btn-ghost btn-xs" type="button" hx-post="/htmx/projects/{{.ID}}/status"
+          hx-vals='{"status":"archived"}' hx-target="#project-panel" hx-swap="outerHTML">{{icon "archive"}}归档</button>
+      {{else if eq .Status "paused"}}
+        <button class="btn btn-ghost btn-xs" type="button" hx-post="/htmx/projects/{{.ID}}/status"
+          hx-vals='{"status":"active"}' hx-target="#project-panel" hx-swap="outerHTML">{{icon "play"}}启用</button>
+        <button class="btn btn-ghost btn-xs" type="button" hx-post="/htmx/projects/{{.ID}}/status"
+          hx-vals='{"status":"archived"}' hx-target="#project-panel" hx-swap="outerHTML">{{icon "archive"}}归档</button>
+      {{else}}
+        <button class="btn btn-ghost btn-xs" type="button" hx-post="/htmx/projects/{{.ID}}/status"
+          hx-vals='{"status":"active"}' hx-target="#project-panel" hx-swap="outerHTML">{{icon "play"}}恢复</button>
+      {{end}}
+    </div>
+  </td>
+</tr>
+{{end}}
+
+{{define "recent_row"}}
+<tr>
+  <td class="mono">{{.ID}}</td>
+  <td>
+    <span class="cell-strong">{{.Model}}</span>
+    <span class="cell-sub">{{.Provider}}</span>
+  </td>
+  <td><span class="pill {{statusClass .Status}}"><span class="dot"></span>{{statusLabel .Status}}</span></td>
+  <td class="num">{{if gt .Latency 0}}{{num .Latency}} ms{{else}}—{{end}}</td>
+  <td class="num">{{num .Tokens}}</td>
+  <td class="num">{{cost .Cost}}</td>
+  <td class="muted mono">{{.Time}}</td>
+</tr>
+{{end}}
+
+{{define "log_row"}}
+<tr>
+  <td class="mono">{{.ID}}</td>
+  <td>
+    <span class="cell-strong">{{.Model}}</span>
+    <span class="cell-sub">{{.Provider}}</span>
+  </td>
+  <td>{{.Project}}</td>
+  <td><span class="tag">{{typeLabel .Type}}</span></td>
+  <td><span class="pill {{statusClass .Status}}"><span class="dot"></span>{{statusLabel .Status}}</span></td>
+  <td class="num">{{if gt .Latency 0}}{{num .Latency}} ms{{else}}—{{end}}</td>
+  <td class="num">{{num .Tokens}}</td>
+  <td class="num">{{cost .Cost}}</td>
+  <td class="muted mono">{{.Date}} {{.Time}}</td>
+  <td class="td-right">
+    <button class="icon-btn icon-btn-sm" type="button" title="查看请求详情"
+      hx-get="/htmx/logs/{{.ID}}" hx-target="closest tr" hx-swap="afterend" aria-label="查看请求详情">{{icon "chevron-down"}}</button>
+  </td>
+</tr>
+{{end}}
+
+{{define "log_detail"}}
+<tr class="detail-row">
+  <td colspan="10">
+    <div class="detail" x-data>
+      <div class="detail-head">
+        <div>
+          <span class="cell-strong mono">{{.ID}}</span>
+          <span class="cell-sub">{{.Provider}} · {{.Model}} · {{typeLabel .Type}}</span>
+        </div>
+        <div class="detail-meta">
+          <span class="pill {{statusClass .Status}}"><span class="dot"></span>{{statusLabel .Status}}</span>
+          <span class="muted mono">{{.Date}} {{.Time}}</span>
+          <button class="btn btn-ghost btn-xs" type="button" @click="$el.closest('tr').remove()">收起</button>
+        </div>
+      </div>
+      <div class="detail-grid">
+        <div class="detail-block">
+          <p class="detail-label">Request</p>
+          <pre>{{.Request}}</pre>
+        </div>
+        <div class="detail-block">
+          <p class="detail-label">Response</p>
+          <pre>{{.Response}}</pre>
+        </div>
+      </div>
+    </div>
+  </td>
+</tr>
+{{end}}
+
+{{define "pager"}}
+<div class="table-foot">
+  <span class="muted">共 <strong>{{num .Total}}</strong> 条{{if .Filtered}}（已筛选）{{end}} · 第 {{.Page}} / {{.Pages}} 页</span>
+  <div class="pager">
+    <a class="pager-btn {{if not .HasPrev}}disabled{{end}}"
+      {{if .HasPrev}}href="{{.PrevURL}}" hx-get="{{.PrevURL}}" hx-target="#log-panel"{{end}}
+      aria-label="上一页">{{icon "chevron-left"}}</a>
+    {{range .PageLinks}}
+      <a class="pager-btn {{if .Active}}active{{end}}" href="{{.URL}}" hx-get="{{.URL}}" hx-target="#log-panel">{{.Label}}</a>
+    {{end}}
+    <a class="pager-btn {{if not .HasNext}}disabled{{end}}"
+      {{if .HasNext}}href="{{.NextURL}}" hx-get="{{.NextURL}}" hx-target="#log-panel"{{end}}
+      aria-label="下一页">{{icon "chevron-right"}}</a>
+  </div>
+</div>
+{{end}}
+
+{{define "empty_state"}}
+<div class="empty">
+  <span class="empty-icon">{{icon .Icon}}</span>
+  <p class="empty-title">{{.Title}}</p>
+  <p class="empty-desc">{{.Desc}}</p>
+</div>
+{{end}}

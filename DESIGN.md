@@ -265,3 +265,13 @@ ReUI 演示与 Bifrost 演示共享业务数据与页面结构，但使用另一
 - 表格、看板、图表均使用项目内已有依赖（TanStack Router、recharts、dnd-kit、Radix UI），不新增付费依赖。
 - 展厅内所有示例均可交互，并随明暗主题切换。
 - Pro 实验室使用 `components/reui/blocks/proDemos.tsx`，目录数据放在 `components/reui/proCatalog.ts`；只使用公开的变体名称与用途描述，不包含 Pro 源码。
+
+### 12. Go + HTMX 演示（`/htmx/*`）
+
+第三套演示不是新的视觉令牌，而是同一套 Bifrost 设计语言的**服务端渲染实现**：
+
+- 字体、颜色、8px 圆角与紧凑密度沿用本文第 3–4 节；样式集中在 `htmx/static/app.css`，使用与 React 版相同的语义变量（`--bg`、`--card`、`--primary` 等），并单独提供暗色令牌。
+- 页面由 Go `html/template` 在服务端渲染；浏览器通过 HTMX 交换 HTML 片段，不维护前端业务状态。筛选、分页、创建、角色变更、吊销、设置保存都写回 `htmx/store.go` 的内存 store。
+- 图表是服务端计算的 inline SVG（趋势线、面积、坐标轴），不依赖 recharts。
+- Alpine.js 只处理局部 UI：弹窗开关、吊销确认气泡、复制反馈；toast 与侧边栏徽标通过 `hx-swap-oob` 从服务端更新。
+- 交互响应头约定：`HX-Push-Url` 同步搜索地址；`HX-Retarget` / `HX-Reswap` 定向表单错误；`HX-Trigger` 关闭弹窗；`HX-Redirect` 处理退出。

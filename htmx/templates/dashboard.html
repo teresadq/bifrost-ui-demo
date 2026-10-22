@@ -1,0 +1,135 @@
+{{define "content"}}
+<div class="page-head">
+  <div>
+    <h1>概览</h1>
+    <p>{{.Subtitle}}</p>
+  </div>
+  <div class="page-actions">
+    <a class="btn btn-outline" href="/htmx/logs">{{icon "scroll"}}查看日志</a>
+    <a class="btn btn-primary" href="/htmx/dashboard">{{icon "refresh"}}刷新</a>
+  </div>
+</div>
+
+<section class="stat-grid">
+  {{range .Stats}}
+    <article class="card stat">
+      <div class="stat-top">
+        <span class="stat-label">{{.Label}}</span>
+        <span class="delta {{if .Positive}}delta-up{{else}}delta-down{{end}}">
+          {{if .Up}}{{icon "arrow-up-right"}}{{else}}{{icon "arrow-down-right"}}{{end}}{{.Delta}}
+        </span>
+      </div>
+      <div class="stat-main">
+        <span class="stat-value">{{.Value}}</span>
+        <svg class="spark {{.Accent}}" viewBox="0 0 96 28" preserveAspectRatio="none" aria-hidden="true"><path d="{{.Spark}}"/></svg>
+      </div>
+      <p class="stat-foot">{{.Foot}}</p>
+    </article>
+  {{end}}
+</section>
+
+<div class="grid-main">
+  <section class="card chart-card">
+    <div class="card-head">
+      <div>
+        <h2 class="card-title">请求量趋势</h2>
+        <p class="card-sub">{{.RangeLabel}} · 共 {{.TotalReqs}} 次请求</p>
+      </div>
+      <div class="legend">
+        <span class="legend-item"><i class="legend-line"></i>成功请求</span>
+        <span class="legend-item"><i class="legend-dash"></i>阈值 100k</span>
+      </div>
+    </div>
+    <div class="chart-plot">
+      <svg viewBox="0 0 720 200" class="trend" role="img" aria-label="最近 14 天请求量趋势">
+        <defs>
+          <linearGradient id="areaFill" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="var(--primary)" stop-opacity=".2"/>
+            <stop offset="100%" stop-color="var(--primary)" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        {{range .Chart.Grid}}
+          <line x1="48" x2="704" y1="{{.Y}}" y2="{{.Y}}" class="grid-line"/>
+          <text x="40" y="{{.Y}}" class="axis-text" text-anchor="end" dominant-baseline="middle">{{.Label}}</text>
+        {{end}}
+        {{range .Chart.XLabels}}
+          <text x="{{.X}}" y="190" class="axis-text" text-anchor="middle">{{.Text}}</text>
+        {{end}}
+        <path d="{{.Chart.AreaPath}}" fill="url(#areaFill)"/>
+        <path d="{{.Chart.LinePath}}" class="trend-line"/>
+        <circle cx="{{.Chart.Last.X}}" cy="{{.Chart.Last.Y}}" r="3.5" class="trend-dot"/>
+      </svg>
+    </div>
+    <div class="chart-foot">
+      <span>{{icon "activity"}}峰值 97,100 次（10-20）</span>
+      <span>{{icon "clock"}}最后一小时 3,842 次</span>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-head">
+      <div>
+        <h2 class="card-title">模型用量占比</h2>
+        <p class="card-sub">按请求数统计</p>
+      </div>
+      <span class="card-badge">Top 5</span>
+    </div>
+    <div class="model-list">
+      {{range .Models}}
+        <div class="model-row">
+          <div class="model-top">
+            <span class="cell-strong">{{.Name}}</span>
+            <span class="muted mono">{{.Share}}%</span>
+          </div>
+          <span class="cell-sub">{{.Provider}}</span>
+          <div class="track"><span class="fill {{.Class}}" style="width:{{.Share}}%"></span></div>
+        </div>
+      {{end}}
+    </div>
+  </section>
+</div>
+
+<div class="grid-bottom">
+  <section class="card table-card">
+    <div class="table-head">
+      <div class="table-title">最近请求 <span class="count">{{len .Recent}}</span></div>
+      <a class="link" href="/htmx/logs">查看全部 {{icon "chevron-right"}}</a>
+    </div>
+    <div class="table-scroll">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>请求 ID</th>
+            <th>模型 / 提供商</th>
+            <th>状态</th>
+            <th class="num">延迟</th>
+            <th class="num">Tokens</th>
+            <th class="num">成本</th>
+            <th>时间</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{range .Recent}}
+            {{template "recent_row" .}}
+          {{end}}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div id="alerts-panel" class="card alerts-card is-loading" hx-get="/htmx/partials/alerts" hx-trigger="load" hx-swap="outerHTML" aria-busy="true">
+    <div class="card-head">
+      <div>
+        <h2 class="card-title">活跃告警</h2>
+        <p class="card-sub">正在从服务端加载…</p>
+      </div>
+      <span class="live-tag"><span class="live-dot"></span>实时</span>
+    </div>
+    <div class="alert-skeleton">
+      <div class="skeleton skeleton-line w-80"></div>
+      <div class="skeleton skeleton-line w-60"></div>
+      <div class="skeleton skeleton-line w-70"></div>
+    </div>
+  </div>
+</div>
+{{end}}

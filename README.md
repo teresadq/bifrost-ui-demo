@@ -1,8 +1,10 @@
 # Nova Console Demo
 
-一个纯静态的前端演示项目，使用与 [Bifrost](https://github.com/maximhq/bifrost) UI **完全一致的技术栈与设计系统**实现，包含注册、登录和一个控制台 Dashboard。
+一个设计系统演示项目，使用与 [Bifrost](https://github.com/maximhq/bifrost) UI **完全一致的技术栈与设计系统**实现，包含注册、登录和一个控制台 Dashboard。
 
-> 所有数据均为本地虚构数据。表单提交只做模拟延时，不会发送任何网络请求。
+项目目前包含三套风格：两套 React 风格（Bifrost、ReUI）和一套按 Go + HTMX 方法实现的服务端渲染风格。前两套是纯静态前端演示；第三套由本地 Go 服务返回 HTML 片段，业务状态保存在服务端内存中。
+
+> 所有数据均为本地虚构数据，不会连接任何外部服务。React 演示的表单提交只做模拟延时；HTMX 演示的请求只发送到本机 Go 服务。
 
 ## 页面
 
@@ -59,14 +61,15 @@
 
 全局功能：`⌘K` 命令面板可搜索并跳转所有页面；未匹配路由展示 404 页面。
 
-`/` 是风格选择页，可进入 Bifrost（`/nova/*`）或 ReUI（`/reui/*`）两套演示。
+`/` 是风格选择页，可进入 Bifrost（`/nova/*`）、ReUI（`/reui/*`）或 Go + HTMX（`/htmx/*`）三套演示。
 
-## 两套风格
+## 三套风格
 
 | 风格 | 路由前缀 | 设计语言 | 说明 |
 | --- | --- | --- | --- |
 | Bifrost | `/nova/*` | Geist、墨绿主色、8px 圆角、高密度 | 原有完整控制台，20+ 页面 |
 | ReUI | `/reui/*` | Inter、近黑主色、10px 圆角、大留白 | 核心页面重构 + 可拖拽 Kanban 看板 |
+| Go + HTMX | `/htmx/*` | Geist、墨绿主色、8px 圆角、高密度 | 同一套 Bifrost 视觉与业务，由 Go 服务端渲染 HTML 片段 |
 
 ReUI 演示基于 [keenthemes/reui](https://github.com/keenthemes/reui)（MIT）的 **免费** 组件与 Neutral 主题，包括其开源 Kanban 组件（dnd-kit）。未使用任何 ReUI Pro 付费区块。
 
@@ -83,6 +86,32 @@ ReUI 演示基于 [keenthemes/reui](https://github.com/keenthemes/reui)（MIT）
 | `/reui/analytics` | 分析：成本堆叠柱、成本环图、延迟分位、明细表 |
 | `/reui/members` | 团队成员：搜索、角色切换、邀请、移除 |
 | `/reui/settings` | 设置：工作区 / 安全 / 通知 / 计费四个分区 |
+
+### Go + HTMX 演示
+
+第三套风格按 [HTMX](https://htmx.org) 的方法实现：浏览器只负责发起请求和替换 HTML 片段，路由、筛选、分页与写入状态全部留在 Go 服务端。视觉与信息密度对齐 Bifrost 风格。
+
+| 路由 | 说明 |
+| --- | --- |
+| `/htmx/dashboard` | 概览：服务端生成的 SVG 趋势图、统计卡、模型占比；告警面板通过 `hx-trigger="load"` 懒加载 |
+| `/htmx/logs` | 请求日志：`input changed delay:350ms` 防抖搜索、筛选、分页、行内请求/响应详情 |
+| `/htmx/projects` | 项目列表：搜索/状态筛选、创建项目、暂停/归档；校验失败演示 `HX-Retarget` |
+| `/htmx/members` | 团队成员：搜索、角色下拉即时写回、邀请成员 |
+| `/htmx/keys` | API 密钥：创建后一次性展示明文并 OOB 插入表格，吊销前使用 Alpine 局部确认 |
+| `/htmx/settings` | 设置：工作区、安全策略、通知偏好，保存后写回服务端 store |
+
+演示到的 HTMX / 服务端技巧：
+
+- `hx-get` + `hx-target` 交换表格/面板 HTML，不返回 JSON
+- `hx-trigger="input changed delay:350ms"` 防抖搜索
+- `hx-trigger="load"` 页面加载后懒加载告警
+- `hx-swap-oob` 一次响应更新多个区域（告警面板 + 侧边栏徽标 + toast）
+- `HX-Push-Url` 同步地址栏，搜索结果可分享
+- `HX-Retarget` / `HX-Reswap` 把校验错误定向到表单错误区
+- `HX-Trigger` 关闭弹窗；`HX-Redirect` 处理退出登录
+- Alpine.js 只负责局部 UI 状态（弹窗、确认气泡、复制反馈）
+
+> `/htmx/*` 需要本地 Go 服务（默认 `127.0.0.1:8090`）。Vite 开发服务器通过代理转发 `/htmx`，因此仍从 `http://localhost:3000/htmx/...` 访问；单独访问 `http://127.0.0.1:8090/htmx/...` 也可以。
 
 ### ReUI Blocks 展厅
 
@@ -113,6 +142,8 @@ ReUI 演示基于 [keenthemes/reui](https://github.com/keenthemes/reui)（MIT）
 - **Geist / Geist Mono** 自托管变量字体；ReUI 演示使用 **Inter Variable**（`@fontsource-variable/inter`）
 - **@dnd-kit**（`core` / `sortable` / `utilities`）驱动 ReUI 看板拖拽
 - ReUI 风格组件与 Kanban 源码抽取自 [keenthemes/reui](https://github.com/keenthemes/reui)（MIT）
+- 第三套演示：**Go 1.22+** 标准库 `net/http` + `html/template`、**htmx 2.0.4**、**Alpine.js 3.14**；无前端构建链
+- 前端开发服务器：**Vite** 代理 `/htmx` 到本地 Go 服务（`127.0.0.1:8090`）
 
 Bifrost 部分版本与 `bifrost/ui/package.json` 保持一致。
 
@@ -120,12 +151,19 @@ Bifrost 部分版本与 `bifrost/ui/package.json` 保持一致。
 
 ## 快速开始
 
+环境要求：Node.js 20+、Go 1.22+（仅第三套演示需要）。
+
 ```bash
 npm install
-npm run dev      # http://localhost:3000
-npm run build    # 产出 dist/ 并执行 tsc 类型检查
-npm run preview  # 预览构建产物
+npm run dev        # 同时启动 Vite(3000) 与 Go HTMX 服务(8090)
+npm run dev:web    # 只启动 React 演示
+npm run dev:htmx   # 只启动 Go + HTMX 演示（http://127.0.0.1:8090/htmx/）
+npm run build      # 产出 dist/ 并执行 tsc 类型检查
+npm run build:htmx # 编译 Go 服务到 dist/htmx-server
+npm run preview    # 预览 React 构建产物
 ```
+
+`npm run dev` 打开的 `http://localhost:3000/` 包含三套风格的入口。
 
 ## 目录结构
 
@@ -149,6 +187,14 @@ src/
 │   ├── nova/                # Bifrost 风格（原有 20+ 页面）
 │   └── reui/                # ReUI 风格（核心页面 + 看板）
 └── styles/globals.css       # Bifrost + ReUI 两套设计令牌
+
+htmx/                        # Go + HTMX 演示（独立 Go module）
+├── main.go                  # 路由、模板渲染、图表与 HTMX 响应头
+├── store.go                 # 服务端内存 store（项目/成员/密钥/日志/告警/设置）
+├── templates/               # html/template：layout、页面与可复用片段
+└── static/                  # 手写 CSS、app.js、htmx / Alpine 运行时与字体
+
+scripts/dev.mjs              # 同时启动 Vite 与 Go 服务
 ```
 
 `src/components/reui/kanban.tsx` 抽取自 ReUI 的 MIT 开源 Kanban 实现，仅调整了项目内导入路径。

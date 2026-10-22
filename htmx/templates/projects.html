@@ -1,0 +1,73 @@
+{{define "content"}}
+<div class="page-head">
+  <div>
+    <h1>项目列表</h1>
+    <p>{{.Subtitle}}</p>
+  </div>
+  <div class="page-actions">
+    <button class="btn btn-primary" type="button" x-data @click="$dispatch('open-project-modal')">{{icon "plus"}}新建项目</button>
+  </div>
+</div>
+
+<form id="project-filters" class="card toolbar"
+  hx-get="/htmx/projects/table" hx-target="#project-panel" hx-swap="outerHTML"
+  hx-trigger="submit, change, input changed delay:350ms">
+  <label class="search-box">
+    {{icon "search"}}
+    <input name="q" value="{{.Q}}" placeholder="搜索项目名称、Key 或负责人…" autocomplete="off">
+    <span class="htmx-indicator spinner" aria-hidden="true"></span>
+  </label>
+  <select class="select" name="status" aria-label="项目状态">
+    <option value="all" {{selected .Status "all"}}>全部状态</option>
+    <option value="active" {{selected .Status "active"}}>运行中</option>
+    <option value="paused" {{selected .Status "paused"}}>已暂停</option>
+    <option value="archived" {{selected .Status "archived"}}>已归档</option>
+  </select>
+  <a class="btn btn-ghost" href="/htmx/projects">{{icon "x"}}重置</a>
+</form>
+
+{{template "projects_panel" .}}
+
+<div class="modal-root" x-data="{open:false}" @open-project-modal.window="open=true; $refs.projectForm.reset(); $refs.projectForm.querySelector('.form-error').textContent=''" @close-project-modal.window="open=false; $refs.projectForm.reset(); $refs.projectForm.querySelector('.form-error').textContent=''" @keydown.escape.window="open=false">
+  <div class="modal-backdrop" x-show="open" x-cloak @click="open=false"></div>
+  <div class="modal" x-show="open" x-cloak role="dialog" aria-modal="true" aria-labelledby="project-modal-title">
+    <div class="modal-head">
+      <div>
+        <h2 id="project-modal-title">新建项目</h2>
+        <p class="modal-sub">项目创建后立即出现在列表中，状态保存在服务端。</p>
+      </div>
+      <button class="icon-btn icon-btn-sm" type="button" @click="open=false" aria-label="关闭">{{icon "x"}}</button>
+    </div>
+    <form x-ref="projectForm" hx-post="/htmx/projects" hx-target="#project-panel" hx-swap="outerHTML" hx-disabled-elt="find button[type=submit]">
+      <div class="modal-body">
+        <label class="field">
+          <span class="label">项目名称</span>
+          <input class="input" name="name" placeholder="例如：客服知识库" autocomplete="off">
+        </label>
+        <div class="form-grid">
+          <label class="field">
+            <span class="label">负责人</span>
+            <input class="input" name="owner" value="陈晓" autocomplete="off">
+          </label>
+          <label class="field">
+            <span class="label">初始状态</span>
+            <select class="select" name="status">
+              <option value="active">运行中</option>
+              <option value="paused">已暂停</option>
+            </select>
+          </label>
+        </div>
+        <div id="project-form-error" class="form-error" role="alert"></div>
+        <p class="hint">
+          表单默认替换 <code>#project-panel</code>；校验失败时服务端返回 <code>HX-Retarget</code>，
+          错误文案被定向到上方错误区。成功后 <code>HX-Trigger</code> 关闭弹窗。
+        </p>
+      </div>
+      <div class="modal-foot">
+        <button class="btn btn-ghost" type="button" @click="open=false">取消</button>
+        <button class="btn btn-primary" type="submit">创建项目</button>
+      </div>
+    </form>
+  </div>
+</div>
+{{end}}

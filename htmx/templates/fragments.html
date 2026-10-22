@@ -1,0 +1,272 @@
+{{define "logs_panel"}}
+<div class="table-scroll">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>请求 ID</th>
+        <th>模型 / 提供商</th>
+        <th>项目</th>
+        <th>类型</th>
+        <th>状态</th>
+        <th class="num">延迟</th>
+        <th class="num">Tokens</th>
+        <th class="num">成本</th>
+        <th>时间</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {{range .Logs}}
+        {{template "log_row" .}}
+      {{else}}
+        <tr><td colspan="10">
+          {{template "empty_state" (dict "Icon" "search" "Title" "没有匹配的请求" "Desc" "试试调整关键词或筛选条件。")}}
+        </td></tr>
+      {{end}}
+    </tbody>
+  </table>
+</div>
+{{template "pager" .}}
+{{end}}
+
+{{define "projects_panel"}}
+<div id="project-panel" class="card table-card">
+  <div class="table-head">
+    <div class="table-title">项目 <span class="count">{{.Total}}</span></div>
+    <div class="table-meta">
+      <span class="meta-item"><i class="dot dot-success"></i>运行中 {{.ActiveCount}}</span>
+      <span class="meta-item"><i class="dot dot-warning"></i>已暂停 {{.PausedCount}}</span>
+      <span class="meta-item"><i class="dot dot-muted"></i>已归档 {{.ArchivedCount}}</span>
+    </div>
+  </div>
+  <div class="table-scroll">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>项目</th>
+          <th>负责人</th>
+          <th>状态</th>
+          <th class="num">请求数</th>
+          <th>预算使用</th>
+          <th>更新时间</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{range .Projects}}
+          {{template "project_row" .}}
+        {{else}}
+          <tr><td colspan="7">
+            {{template "empty_state" (dict "Icon" "folder" "Title" "没有匹配的项目" "Desc" "换个关键词，或者新建一个项目。")}}
+          </td></tr>
+        {{end}}
+      </tbody>
+    </table>
+  </div>
+</div>
+{{end}}
+
+{{define "members_panel"}}
+<div class="table-scroll">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>成员</th>
+        <th>角色</th>
+        <th>双因素认证</th>
+        <th>最近活跃</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{range .Members}}
+        {{template "member_row" .}}
+      {{else}}
+        <tr><td colspan="4">
+          {{template "empty_state" (dict "Icon" "users" "Title" "没有匹配的成员" "Desc" "试试别的姓名或邮箱。")}}
+        </td></tr>
+      {{end}}
+    </tbody>
+  </table>
+</div>
+<div class="table-foot">
+  <span class="muted">共 <strong>{{num .Total}}</strong> 位成员</span>
+  <span class="muted">角色变更通过 HTMX 立即写回服务端</span>
+</div>
+{{end}}
+
+{{define "keys_panel"}}
+<div id="keys-panel" {{if .OOB}}hx-swap-oob="outerHTML"{{end}}>
+<section class="card table-card">
+  <div class="table-head">
+    <div class="table-title">密钥 <span class="count" id="key-active-count">{{.ActiveCount}} 个有效</span></div>
+    <span class="table-meta">{{icon "key"}}共 {{len .Keys}} 个</span>
+  </div>
+  <div class="table-scroll">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>名称 / 前缀</th>
+          <th>权限范围</th>
+          <th>创建时间</th>
+          <th>最近使用</th>
+          <th>状态</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="key-rows">
+        {{range .Keys}}
+          {{template "key_row" .}}
+        {{end}}
+      </tbody>
+    </table>
+  </div>
+  <div class="table-foot">
+    <span class="muted">吊销是目前唯一支持的密钥生命周期操作</span>
+    <span class="muted">新密钥与密钥面板通过 <code>hx-swap-oob</code> 同步更新</span>
+  </div>
+</section>
+</div>
+{{end}}
+
+{{define "alerts_panel"}}
+<section id="alerts-panel" class="card alerts-card">
+  <div class="card-head">
+    <div>
+      <h2 class="card-title">活跃告警</h2>
+      <p class="card-sub">{{.Open}} 条待处理 · 服务端实时计算</p>
+    </div>
+    <span class="live-tag"><span class="live-dot"></span>实时</span>
+  </div>
+  <div class="alert-list">
+    {{range .Alerts}}
+      <div class="alert-item {{if .Acked}}is-acked{{end}}">
+        <span class="alert-sev sev-{{.Severity}}" title="{{severity .Severity}}"></span>
+        <div class="alert-body">
+          <div class="alert-title-row">
+            <span class="cell-strong">{{.Title}}</span>
+            <span class="muted mono">{{.Time}}</span>
+          </div>
+          <p class="alert-detail">{{.Detail}}</p>
+          <span class="severity-tag sev-text-{{.Severity}}">{{severity .Severity}}</span>
+        </div>
+        {{if not .Acked}}
+          <button class="btn btn-outline btn-xs" type="button"
+            hx-post="/htmx/alerts/{{.ID}}/ack" hx-target="#alerts-panel" hx-swap="outerHTML">确认</button>
+        {{else}}
+          <span class="pill pill-neutral"><span class="dot"></span>已确认</span>
+        {{end}}
+      </div>
+    {{else}}
+      {{template "empty_state" (dict "Icon" "check" "Title" "全部告警已处理" "Desc" "新的告警会在这里实时出现。")}}
+    {{end}}
+  </div>
+</section>
+{{end}}
+
+{{define "settings_form"}}
+<form id="settings-form" hx-post="/htmx/settings" hx-target="#settings-form" hx-swap="outerHTML">
+  {{if .Saved}}
+    <div class="banner banner-success">{{icon "check"}}<span>设置已保存到服务端 · {{.Now}}</span></div>
+  {{end}}
+
+  <section class="card settings-card">
+    <div class="card-head">
+      <div>
+        <h2 class="card-title">工作区</h2>
+        <p class="card-sub">名称会出现在控制台侧边栏与通知邮件中。</p>
+      </div>
+    </div>
+    <div class="form-grid">
+      <label class="field">
+        <span class="label">工作区名称</span>
+        <input class="input" name="workspace_name" value="{{.Settings.WorkspaceName}}" autocomplete="off">
+      </label>
+      <label class="field">
+        <span class="label">时区</span>
+        <select class="select" name="timezone">
+          <option value="Asia/Shanghai (UTC+8)" {{selected .Settings.Timezone "Asia/Shanghai (UTC+8)"}}>Asia/Shanghai (UTC+8)</option>
+          <option value="UTC" {{selected .Settings.Timezone "UTC"}}>UTC</option>
+          <option value="America/Los_Angeles (UTC-8)" {{selected .Settings.Timezone "America/Los_Angeles (UTC-8)"}}>America/Los_Angeles (UTC-8)</option>
+        </select>
+      </label>
+      <label class="field">
+        <span class="label">日志保留</span>
+        <select class="select" name="retention">
+          <option value="7 天" {{selected .Settings.Retention "7 天"}}>7 天</option>
+          <option value="30 天" {{selected .Settings.Retention "30 天"}}>30 天</option>
+          <option value="90 天" {{selected .Settings.Retention "90 天"}}>90 天</option>
+        </select>
+      </label>
+      <label class="field">
+        <span class="label">数据区域</span>
+        <select class="select" name="region">
+          <option value="ap-shanghai-1" {{selected .Settings.Region "ap-shanghai-1"}}>ap-shanghai-1</option>
+          <option value="ap-singapore-1" {{selected .Settings.Region "ap-singapore-1"}}>ap-singapore-1</option>
+          <option value="us-west-2" {{selected .Settings.Region "us-west-2"}}>us-west-2</option>
+        </select>
+      </label>
+    </div>
+  </section>
+
+  <section class="card settings-card">
+    <div class="card-head">
+      <div>
+        <h2 class="card-title">安全策略</h2>
+        <p class="card-sub">对工作区内所有成员生效。</p>
+      </div>
+      <span class="card-badge">{{icon "shield"}}策略</span>
+    </div>
+    <div class="switch-list">
+      <label class="switch-row">
+        <span class="switch-text">
+          <span class="cell-strong">要求双因素认证</span>
+          <span class="cell-sub">未绑定 2FA 的成员将被限制访问控制台。</span>
+        </span>
+        <input type="checkbox" class="switch" name="mfa_required" {{checked .Settings.MFARequired}}>
+      </label>
+    </div>
+    <label class="field field-block">
+      <span class="label">IP 允许列表 <span class="label-hint">每行一个 CIDR，留空表示不限制</span></span>
+      <textarea class="input textarea" name="ip_allowlist" rows="3" placeholder="10.0.0.0/8&#10;203.0.113.24/32">{{.Settings.IPAllowlist}}</textarea>
+    </label>
+  </section>
+
+  <section class="card settings-card">
+    <div class="card-head">
+      <div>
+        <h2 class="card-title">通知偏好</h2>
+        <p class="card-sub">告警与账单摘要的投递方式。</p>
+      </div>
+      <span class="card-badge">{{icon "bell"}}通知</span>
+    </div>
+    <div class="switch-list">
+      <label class="switch-row">
+        <span class="switch-text">
+          <span class="cell-strong">邮件通知</span>
+          <span class="cell-sub">发送到工作区所有管理员的邮箱。</span>
+        </span>
+        <input type="checkbox" class="switch" name="notify_email" {{checked .Settings.NotifyEmail}}>
+      </label>
+      <label class="switch-row">
+        <span class="switch-text">
+          <span class="cell-strong">Slack 通知</span>
+          <span class="cell-sub">推送到 #nova-alerts 频道。</span>
+        </span>
+        <input type="checkbox" class="switch" name="notify_slack" {{checked .Settings.NotifySlack}}>
+      </label>
+      <label class="switch-row">
+        <span class="switch-text">
+          <span class="cell-strong">每日用量摘要</span>
+          <span class="cell-sub">每天 09:00 汇总请求量、成本与错误率。</span>
+        </span>
+        <input type="checkbox" class="switch" name="daily_digest" {{checked .Settings.DailyDigest}}>
+      </label>
+    </div>
+  </section>
+
+  <div class="save-bar">
+    <span class="muted">所有字段都会写回服务端内存 store，刷新页面后仍然保留。</span>
+    <button class="btn btn-primary" type="submit" hx-disabled-elt="this">{{icon "check"}}保存更改</button>
+  </div>
+</form>
+{{end}}

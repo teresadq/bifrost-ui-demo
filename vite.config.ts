@@ -22,6 +22,23 @@ export default defineConfig({
 	},
 	server: {
 		port: 3000,
+		proxy: {
+			// Go + HTMX 演示（htmx/）。Vite 把 /htmx/* 原样转发给本地 Go 服务，
+			// 因此第三套风格与 React 演示共用同一个端口与来源。
+			"/htmx": {
+				target: "http://127.0.0.1:8090",
+				changeOrigin: false,
+			},
+		},
+	},
+	preview: {
+		port: 4173,
+		proxy: {
+			"/htmx": {
+				target: "http://127.0.0.1:8090",
+				changeOrigin: false,
+			},
+		},
 	},
 	build: {
 		outDir: "dist",

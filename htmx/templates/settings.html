@@ -1,0 +1,11 @@
+{{define "content"}}
+<div class="page-head">
+  <div>
+    <h1>设置</h1>
+    <p>{{.Subtitle}}</p>
+  </div>
+  <span class="page-meta">{{icon "database"}}写入内存 store · 刷新不丢失</span>
+</div>
+
+{{template "settings_form" .}}
+{{end}}
